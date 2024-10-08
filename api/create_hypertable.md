@@ -10,23 +10,93 @@ api:
 
 # create_hypertable()
 
-Creates a TimescaleDB hypertable from a PostgreSQL table (replacing the latter),
-partitioned on one dimension. The PostgreSQL table cannot be an already partitioned table
-(declarative partitioning or inheritance). In case of a non-empty table, it is
-possible to migrate the data during hypertable creation using the `migrate_data`
-option, although this might take a long time and has certain limitations when
-the table contains foreign key constraints (see below).
+Replace a standard PostgreSQL relational table with a [hypertable][hypertable-docs] 
+that is partitioned on a single dimension. A hypertable is a PostgreSQL table that 
+automatically partitions your data by time. A dimension defines the way your data is partitioned.
+All actions work on the resulting hypertable. For example, `ALTER TABLE`, and `SELECT`.
 
-After creation, all actions, such as `ALTER TABLE`, `SELECT`, etc., still work
-on the resulting hypertable.
+If your table contains data, set [migrate_data][migrate-data] to `TRUE`. However, this 
+may take a long time and there are limitations when the table contains foreign key constraints.
 
-For more information about using hypertables, including chunk size partitioning,
-see the [hypertable section][hypertable-docs].
+You cannot run `create_hypertable()` on a table that is already partitioned using 
+[declarative partitioning][declarative-partitioning] or [inheritance][inheritance].
 
-<Highlight type="note">
-This reference describes the new generalized hypertable API that was introduced in TimescaleDB 2.13.
+This page describes the generalized hypertable API introduced in TimescaleDB v2.13.
 The [old interface for `create_hypertable` is also available](/api/:currentVersion:/hypertable/create_hypertable_old/).
-</Highlight>
+
+## Samples
+
+The examples in this section show you how to:
+
+- Time partition a hypertable sorted by range
+- Time partition a hypertable using composite columns and immutable functions
+- Time partition a hypertable using ISO formatting
+
+### Time partition a hypertable sorted by range
+
+The following examples show different ways to convert the `conditions` relational table to a
+hypertable:
+
+- Convert with range partitioning on the `time` column:
+
+  ```sql
+  SELECT create_hypertable('conditions', by_range('time'));
+  ```
+
+- Convert with a [chunk_time_interval][chunk_time_interval] of 24 hours:
+  Either:
+  ```sql
+  SELECT create_hypertable('conditions', by_range('time', 86400000000));
+  ```
+  or:
+  ```sql
+  SELECT create_hypertable('conditions', by_range('time', INTERVAL '1 day'));
+  ```
+
+- with range partitioning on the `time` column, do not raise a warning if `conditions` is already a hypertable:
+
+  ```sql
+  SELECT create_hypertable('conditions', by_range('time'), if_not_exists => TRUE);
+  ```
+
+### Time partition a hypertable using composite columns and immutable functions
+
+The following example shows how to time partition the `measurements` relational table on a composite
+column type using a range partitioning function.
+
+1. Create the report type, then an immutable function that converts the column value into a supported column value:
+
+    ```sql
+    CREATE TYPE report AS (reported timestamp with time zone, contents jsonb);
+    
+    CREATE FUNCTION report_reported(report)
+      RETURNS timestamptz
+      LANGUAGE SQL
+      IMMUTABLE AS
+      'SELECT $1.reported';
+    
+    SELECT create_hypertable('measurements', by_range('report', partition_func => 'report_reported'));
+    ```
+
+1. Create the hypertable using the immutable function:
+    ```sql
+    SELECT create_hypertable('measurements', by_range('report', partition_func => 'report_reported'));
+    ```
+
+### Time partition a hypertable using ISO formatting
+
+The following example shows how to time partition the `events` table on a `jsonb` (`event`) column
+type, which has a top level `started` key that contains an ISO 8601 formatted timestamp:
+
+```sql
+CREATE FUNCTION event_started(jsonb)
+  RETURNS timestamptz
+  LANGUAGE SQL
+  IMMUTABLE AS
+  $func$SELECT ($1->>'started')::timestamptz$func$;
+
+SELECT create_hypertable('events', by_range('event', partition_func => 'event_started'));
+```
 
 ## Required arguments
 
@@ -37,22 +107,23 @@ The [old interface for `create_hypertable` is also available](/api/:currentVersi
 
 ## Optional arguments
 
-|Name|Type|Description|
-|-|-|-|
-|`create_default_indexes`|BOOLEAN|Whether to create default indexes on time/partitioning columns. Default is TRUE.|
-|`if_not_exists`|BOOLEAN|Whether to print warning if table already converted to hypertable or raise exception. Default is FALSE.|
-|`migrate_data`|BOOLEAN|Set to TRUE to migrate any existing data from the `relation` table to chunks in the new hypertable. A non-empty table generates an error without this option. Large tables may take significant time to migrate. Defaults to FALSE.|
+|Name|Type| Description                                                                                                                                                                                                                         |
+|-|-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`create_default_indexes`|BOOLEAN| Create default indexes on time/partitioning columns. Default is TRUE.                                                                                                                                                               |
+|`if_not_exists`|BOOLEAN| Set to `TRUE` to raise an exception is already a hypertable. The default is `FALSE`; no exception is raisd but a warning is printed.                                                                                                |
+|`migrate_data`|BOOLEAN| Set to TRUE to migrate any existing data from the `relation` table to chunks in the new hypertable. A non-empty table generates an error without this option. Large tables may take significant time to migrate. Defaults to FALSE. |
 
 ## Returns
 
-|Column|Type|Description|
-|-|-|-|
-|`hypertable_id`|INTEGER|ID of the hypertable in TimescaleDB.|
-|`created`|BOOLEAN|TRUE if the hypertable was created, FALSE when `if_not_exists` is true and no hypertable was created.|
+|Column|Type| Description                                                                                                 |
+|-|-|-------------------------------------------------------------------------------------------------------------|
+|`hypertable_id`|INTEGER| The ID of the hypertable you created.                                                                   |
+|`created`|BOOLEAN| `TRUE` when the hypertable is created. `FALSE` when `if_not_exists` is `true` and no hypertable was created. |
 
 <Highlight type="note">
-If you use `SELECT * FROM create_hypertable(...)` you get the return value
-formatted as a table with column headings.
+
+If you call `SELECT * FROM create_hypertable(...)` the return value is formatted as a table with column headings.
+
 </Highlight>
 
 The use of the `migrate_data` argument to convert a non-empty table can
@@ -85,59 +156,13 @@ When creating a hypertable, you need to provide dimension info using
 one of the [dimension builders][dimension-builders]). This is used to
 specify what column to partition by and in what way to partition.
 
-## Sample use
-
-Convert table `conditions` to hypertable with just range partitioning on column `time`:
-
-```sql
-SELECT create_hypertable('conditions', by_range('time'));
-```
-
-Convert table `conditions` to hypertable, setting `chunk_time_interval` to 24 hours.
-
-```sql
-SELECT create_hypertable('conditions', by_range('time', 86400000000));
-SELECT create_hypertable('conditions', by_range('time', INTERVAL '1 day'));
-```
-
-Convert table `conditions` to hypertable. Do not raise a warning
-if `conditions` is already a hypertable:
-
-```sql
-SELECT create_hypertable('conditions', by_range('time'), if_not_exists => TRUE);
-```
-
-Time partition table `measurements` on a composite column type `report` using a
-range partitioning function. Requires an immutable function that can convert the
-column value into a supported column value:
-
-```sql
-CREATE TYPE report AS (reported timestamp with time zone, contents jsonb);
-
-CREATE FUNCTION report_reported(report)
-  RETURNS timestamptz
-  LANGUAGE SQL
-  IMMUTABLE AS
-  'SELECT $1.reported';
-
-SELECT create_hypertable('measurements', by_range('report', partition_func => 'report_reported'));
-```
-
-Time partition table `events`, on a column type `jsonb` (`event`), which has
-a top level key (`started`) containing an ISO 8601 formatted timestamp:
-
-```sql
-CREATE FUNCTION event_started(jsonb)
-  RETURNS timestamptz
-  LANGUAGE SQL
-  IMMUTABLE AS
-  $func$SELECT ($1->>'started')::timestamptz$func$;
-
-SELECT create_hypertable('events', by_range('event', partition_func => 'event_started'));
-```
 
 [create_distributed_hypertable]: /api/:currentVersion:/distributed-hypertables/create_distributed_hypertable
 [hash-partitions]: /use-timescale/:currentVersion:/hypertables/about-hypertables/#hypertable-partitioning
 [hypertable-docs]: /use-timescale/:currentVersion:/hypertables/
 [dimension-builders]: /api/:currentVersion:/hypertable/dimension_info
 [by-range]: /api/:currentVersion:/hypertable/dimension_info/#by_range
+[declarative-partitioning]: https://www.postgresql.org/docs/current/ddl-partitioning.html#DDL-PARTITIONING-DECLARATIVE
+[inheritance]: https://www.postgresql.org/docs/current/ddl-partitioning.html#DDL-PARTITIONING-USING-INHERITANCE
+[migrate-data]: /api/:currentVersion:/hypertable/create_hypertable/#optional-arguments
+[chunk_time_interval]: /api/:currentVersion:/hypertable/set_chunk_time_interval/
