@@ -1,20 +1,18 @@
 # Dimension Builders
 
-You call [`create_hypertable`][create_hypertable] and [`add_dimension`][add_dimension] to specify the dimensions to 
-partition a hypertable on. TimescaleDB supports partitioning [`by_range`][by-range] and [`by_hash`][by-hash]. You can 
-partition `by_range` on it's own. 
+You call [`create_hypertable`][create_hypertable] and [`add_dimension`][add_dimension] to specify the 
+dimensions to partition a hypertable on. 
 
-Hypertables must always have a primary range dimension, followed by an arbitrary number of additional dimensions that 
-can be either range or hash, Typically this is just one hash.
- 
+TimescaleDB supports partitioning [`by_range`][by-range] and [`by_hash`][by-hash]. You can partition `by_range` 
+on it's own. 
 
-For incompatible data types such as `jsonb`, you can specify a function to
-the `partition_func` argument of the dimension build to extract a compatible
-data type. Look in the example section below.
+Hypertables must always have a primary range dimension, followed by an arbitrary number of additional 
+dimensions that can be either range or hash, Typically this is just one hash.
+
+For incompatible data types such as `jsonb`, you can specify a function to the `partition_func` argument 
+of the dimension build to extract a compatible data type. Look in the example section below.
 
 Dimension builders were introduced in TimescaleDB 2.13.
-
-
 
 ## Partition Function
 
@@ -51,9 +49,8 @@ Create a by-range dimension builder that can be used with
 	
 ### Returns 
 
-A *dimension builder*, which is an which is an opaque type
-`_timescaledb_internal.dimension_info`, holding the dimension
-information.
+A *dimension builder*, which is an opaque type
+`_timescaledb_internal.dimension_info`, holding the dimension information.
 
 ### Notes
 
@@ -76,7 +73,7 @@ The partition type and default value depending on column type is:
 | `INT`                        | INT              | 100000        |
 | `BIGINT`                     | BIGINT           | 1000000       |
 
-### Examples
+### Samples
 
 The simplest usage is to partition on a time column:
 
