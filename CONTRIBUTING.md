@@ -23,7 +23,8 @@ This section provides pointers on how to write, structure, and organize your con
 
 Aim to write in a clear, concise, and actionable manner. Timescale documentation uses the [Google Developer Documentation Style Guide][google-style] with the following exceptions:
 
-- No capitalization after a colon.
+- Do not capitalize the first word after a colon.
+- Use code font (back ticks) for UI elements instead of bold. 
 
 ### Documentation structure
 
@@ -47,18 +48,28 @@ Every `page-index.js` includes the following fields:
 
 Partials allow you to reuse snippets of content in multiple places. All partials
 live in the `_partials` top-level directory. To make a new partial, create a new
-`.md` file. The filename must be in CamelCase and start with an underscore.
+`.md` file. The filename must be in CamelCase and start with an underscore. Then import it into the target page. See [Formatting examples](_formatting_examples.md).
 
 ### Visuals
 
+When adding screenshots to the docs, aim for a full-screen view to provide better context. Attach the image to your issue or PR, and the doc team will upload and insert it for you. 
 
 ### Formatting
 
-See the example page for available elements
+In addition to all the regular Markdown formatting, the following elements are available for Timescale docs:
 
-Variables
+- Procedure blocks
+- Highlights 
+- Tabs
+- Multi-tab code blocks
 
-Links
+See [Formatting examples](_formatting_examples.md) for how to use them. 
+
+### Variables
+
+Timescale documentation uses variables for its product names, features, and UI elements in Timescale Console. See [Formatting examples](_formatting_examples.md) for the variables list and use syntax. 
+
+### Links
 
 
 
