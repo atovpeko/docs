@@ -59,7 +59,6 @@ supported extensions:
 | [postgis_sfcgal][postgis_sfcgal]                 | PostGIS SFCGAL functions                                               | -                              |
 | [postgis_tiger_geocoder][postgis_tiger_geocoder] | PostGIS tiger geocoder and reverse geocoder                            | -                              |
 | [postgis_topology][postgis_topology]             | PostGIS topology spatial types and functions                           | -                              |
-| [postgres_fdw][postgres-fdw]                     | Foreign data wrappers                                                  | -                              |
 | [refint][refint]                                 | Functions for implementing referential integrity (obsolete)            | -                              |
 | [seg][seg]                                       | Data type for representing line segments or floating-point intervals   | -                              |
 | [sslinfo][sslinfo]                               | Information about SSL certificates                                     | -                              |
