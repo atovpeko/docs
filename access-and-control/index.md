@@ -71,5 +71,5 @@ The main workflows you need to accomplish for access and control in Timescale Cl
 
 
 
-[vector-search-indexing]: /embed-ai-in-your-data/:currentVersion:/key-vector-database-concepts-for-understanding-pgvector/#vector-search-indexing-approximate-nearest-neighbor-search
+[vector-search-indexing]: /build-for-ai/:currentVersion:/key-vector-database-concepts-for-understanding-pgvector/#vector-search-indexing-approximate-nearest-neighbor-search
 [user-management]: /access-and-control/:currentVersion:/user-management/

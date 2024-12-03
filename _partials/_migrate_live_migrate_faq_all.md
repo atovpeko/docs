@@ -94,5 +94,5 @@ This rare phenomenon may happen when:
   Upgrade to better instances types until migration completes.
 
 
-[tune-connections]: /migrate/:currentVersion:/live-migration/#tune-the-target-timescale-cloud-service
-[align-versions]: /migrate/:currentVersion:/live-migration/#align-the-version-of-timescaledb-on-the-source-and-target
+[tune-connections]: /ingest-and-migrate/:currentVersion:/live-migration/#tune-the-target-timescale-cloud-service
+[align-versions]: /ingest-and-migrate/:currentVersion:/live-migration/#align-the-version-of-timescaledb-on-the-source-and-target

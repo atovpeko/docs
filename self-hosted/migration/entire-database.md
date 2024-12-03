@@ -123,5 +123,5 @@ information about compression and decompression, see [Compression][compression].
 [timescaledb_post_restore]: /api/:currentVersion:/administration/#timescaledb_post_restore
 [upgrading-postgresql-self-hosted]: /self-hosted/:currentVersion:/upgrades/upgrade-pg/
 [upgrading-timescaledb]: /self-hosted/:currentVersion:/upgrades/major-upgrade/
-[live-migration]: /migrate/:currentVersion:/live-migration/
+[live-migration]: /ingest-and-migrate/:currentVersion:/live-migration/
 [compression]: /use-timescale/:currentVersion:/compression/

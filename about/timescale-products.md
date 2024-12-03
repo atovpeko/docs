@@ -92,32 +92,32 @@ Scale from POC to Production
 
 - **Flexible and transparent pricing**
 
-  No “pay per query” or “pay per index”. Decoupled compute and storage for flexible resource scaling as you grow. Usage-based storage and dynamic compute (coming soon), so you pay only for what you actually use.
+  No “pay per query” or “pay per index”. Decoupled compute and storage for flexible resource scaling as you grow. 
+  Usage-based storage and dynamic compute (coming soon), so you pay only for what you actually use.
 
 - **Ready to scale from day one**
 
-  Push to prod with the confidence of automatic backups, failover and High Availability. Use read replicas to scale query load. One-click database forking for testing new embedding and LLM models. Consultative support to guide you as you grow at no extra cost.
+  Push to prod with the confidence of automatic backups, failover and High Availability. Use read replicas to scale 
+  query load. One-click database forking for testing new embedding and LLM models. Consultative support to guide you 
+  as you grow at no extra cost.
 
 - **Enterprise-grade security and data privacy**
 
-  SOC2 Type II and GDPR compliance. Data encryption at rest and in motion. VPC peering for your Amazon VPC. Secure backups. Multi-factor authentication.
+  SOC2 Type II and GDPR compliance. Data encryption at rest and in motion. VPC peering for your Amazon VPC. Secure 
+- backups. Multi-factor authentication.
 
 
 ## Managed Service for TimescaleDB  
 
-GCP and Azure
+Managed Service for TimescaleDB (MST) is TimescaleDB hosted on Azure and GCP. MST is offered in partnership with Aiven.
 
-A reliable and worry-free PostgreSQL cloud for all your workloads for:
 
-| Feature        | Description  | 
-|----------------|--------------|
-| Something cool | How it helps |
-
-sigh
 
 ## TimescaleDB
 
-TimescaleDB is an open-source database designed to make SQL scalable for time-series data. It is engineered up from PostgreSQL and packaged as a PostgreSQL extension, providing automatic partitioning across time and space (partitioning key), as well as full SQL support.
+TimescaleDB is an open-source database designed to make SQL scalable for time-series data. It is engineered up from 
+PostgreSQL and packaged as a PostgreSQL extension, providing automatic partitioning across time and space 
+(partitioning key), as well as full SQL support.
 
 
 ## TimescaleDB Toolkit

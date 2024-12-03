@@ -5,7 +5,7 @@ products: [mst]
 tags: [extensions]
 ---
 
-# Supported PostgreSQL extensions
+# PostgreSQL extensions supported by Timescale Cloud
 
 Managed Service for TimescaleDB supports many PostgreSQL extensions. See
 [available extensions](#available-extensions) for a full list.

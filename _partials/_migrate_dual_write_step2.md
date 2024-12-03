@@ -23,4 +23,4 @@ queries deliver. Bear in mind that the target database spends a certain amount
 of time without all data being present, so you should expect that the results
 are not the same for some period (potentially a number of days).
 
-[live migration]: /migrate/:currentVersion:/live-migration/
+[live migration]: /ingest-and-migrate/:currentVersion:/live-migration/

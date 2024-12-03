@@ -22,4 +22,4 @@ To continue exploring Timescale, here are some things you might like to try:
 [connect-with-code]: /quick-start/:currentVersion:/
 [integrations]: /use-timescale/:currentVersion:/integrations/
 [extensions]: /use-timescale/:currentVersion:/extensions/
-[tutorials]: /tutorials/:currentVersion:/
+[tutorials]: /implement-use-cases/:currentVersion:/

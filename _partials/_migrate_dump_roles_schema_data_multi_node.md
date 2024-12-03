@@ -36,7 +36,7 @@
 
 [pg_dump]: https://www.postgresql.org/docs/current/app-pgdump.html
 [pg_restore]: https://www.postgresql.org/docs/current/app-pgrestore.html
-[dumping-with-concurrency]: /migrate/:currentVersion:/troubleshooting/#dumping-with-concurrency
-[restoring-with-concurrency]: /migrate/:currentVersion:/troubleshooting/#restoring-with-concurrency
-[long-running-pgdump]: /migrate/:currentVersion:/troubleshooting/#dumping-and-locks
+[dumping-with-concurrency]: /ingest-and-migrate/:currentVersion:/troubleshooting/#dumping-with-concurrency
+[restoring-with-concurrency]: /ingest-and-migrate/:currentVersion:/troubleshooting/#restoring-with-concurrency
+[long-running-pgdump]: /ingest-and-migrate/:currentVersion:/troubleshooting/#dumping-and-locks
 [Upgrade TimescaleDB]: https://docs.timescale.com/self-hosted/latest/upgrades/

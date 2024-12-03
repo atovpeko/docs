@@ -1,5 +1,5 @@
 ---
-title: Efficient storage
+title: Storage
 excerpt: Install and manage your deployment, control user access, and integrate third party tooling.   
 products: [cloud]
 keywords: [ai, vector, ]

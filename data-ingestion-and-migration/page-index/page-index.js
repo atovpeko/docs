@@ -1,6 +1,6 @@
 module.exports = [
   {
-    title: "Data ingestion and migration",
+    title: "Migrate and ingest data from third-party sources",
     href: "data-ingestion-and-migration",
     filePath: "index.md",
     excerpt:

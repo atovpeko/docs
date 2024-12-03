@@ -124,6 +124,6 @@ if you want to have a chat.
 [contact]: https://www.timescale.com/contact
 [install-psql]: /use-timescale/:currentVersion:/integrations/query-admin/about-psql/
 [mst-docs]: /mst/:currentVersion:/
-[tutorials]: /tutorials/:currentVersion:/
+[tutorials]: /implement-use-cases/:currentVersion:/
 [mst-signup]: https://www.timescale.com/mst-signup
 [mst-login]:https://portal.managed.timescale.com/login

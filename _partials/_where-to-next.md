@@ -4,4 +4,4 @@ Now you have TimescaleDB running, have a look at the:
 * [Use Timescale][tsdb-docs]: browse the features available with TimescaleDB.
 
 [tsdb-docs]: /use-timescale/:currentVersion:/
-[tutorials]: /tutorials/:currentVersion:/
+[tutorials]: /implement-use-cases/:currentVersion:/

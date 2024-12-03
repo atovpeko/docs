@@ -52,11 +52,11 @@
 
 [pg_dump]: https://www.postgresql.org/docs/current/app-pgdump.html
 [pg_restore]: https://www.postgresql.org/docs/current/app-pgrestore.html
-[migrate-from-timescaledb]: /migrate/:currentVersion:/pg-dump-and-restore/#migrate-from-timescaledb-using-pg_dumprestore
-[migrate-from-postgresql]: /migrate/:currentVersion:/pg-dump-and-restore/#migrate-from-postgresql-using-pg_dumprestore
-[dumping-with-concurrency]: /migrate/:currentVersion:/troubleshooting/#dumping-with-concurrency
-[restoring-with-concurrency]: /migrate/:currentVersion:/troubleshooting/#restoring-with-concurrency
-[long-running-pgdump]: /migrate/:currentVersion:/troubleshooting/#dumping-and-locks
+[migrate-from-timescaledb]: /ingest-and-migrate/:currentVersion:/pg-dump-and-restore/#migrate-from-timescaledb-using-pg_dumprestore
+[migrate-from-postgresql]: /ingest-and-migrate/:currentVersion:/pg-dump-and-restore/#migrate-from-postgresql-using-pg_dumprestore
+[dumping-with-concurrency]: /ingest-and-migrate/:currentVersion:/troubleshooting/#dumping-with-concurrency
+[restoring-with-concurrency]: /ingest-and-migrate/:currentVersion:/troubleshooting/#restoring-with-concurrency
+[long-running-pgdump]: /ingest-and-migrate/:currentVersion:/troubleshooting/#dumping-and-locks
 [Upgrade TimescaleDB]: https://docs.timescale.com/self-hosted/latest/upgrades/
 [timescaledb_pre_restore]: /api/:currentVersion:/administration/#timescaledb_post_restore
 [timescaledb_post_restore]: /api/:currentVersion:/administration/#timescaledb_post_restore

@@ -1,5 +1,5 @@
 ---
-title: Migrate and ingest data
+title: Migrate and ingest data from third-party sources
 excerpt: Install and manage your deployment, control user access, and integrate third party tooling.   
 products: [cloud]
 keywords: [ai, vector, ]
@@ -7,7 +7,7 @@ tags: [ai, vector]
 ---
 
 
-# Data ingestion and migration
+# Migrate and ingest data from third-party sources
 
 Intro sentence explaining what data security and reliability is and how the information in the section helps the end user perform
 common tasks.
@@ -40,10 +40,10 @@ see [Ingest data from other sources][data-ingest].
 
 
 [data-ingest]: /use-timescale/:currentVersion:/ingest-data/
-[dual-write]: /migrate/:currentVersion:/dual-write-and-backfill/
-[pg-dump-restore]: /migrate/:currentVersion:/pg-dump-and-restore/
+[dual-write]: /ingest-and-migrate/:currentVersion:/dual-write-and-backfill/
+[pg-dump-restore]: /ingest-and-migrate/:currentVersion:/pg-dump-and-restore/
 [parallel-copy]: /use-timescale/:currentVersion:/ingest-data/import-csv/
-[troubleshooting]: /migrate/:currentVersion:/troubleshooting/
-[live-migration]: /migrate/:currentVersion:/live-migration/
+[troubleshooting]: /ingest-and-migrate/:currentVersion:/troubleshooting/
+[live-migration]: /ingest-and-migrate/:currentVersion:/live-migration/
 [pgcopydb]: https://github.com/dimitri/pgcopydb
-[playbooks]: /migrate/:currentVersion:/playbooks/
+[playbooks]: /ingest-and-migrate/:currentVersion:/playbooks/

@@ -14,10 +14,10 @@ Before you migrate your data:
 - To ensure that maintenance does not run while migration is in progress, best practice is to [adjust the maintenance window][adjust-maintenance-window]. 
 
 [created-a-database-service-in-timescale]: /getting-started/:currentVersion:/services/
-[has a single database]: /migrate/:currentVersion:/troubleshooting/#only-one-database-per-instance
-[all available extensions]: /migrate/:currentVersion:/troubleshooting/#extension-availability
-[tablespaces]: /migrate/:currentVersion:/troubleshooting/#tablespaces
-[no-superuser-for-timescale-instance]: /migrate/:currentVersion:/troubleshooting/#superuser-privileges
+[has a single database]: /ingest-and-migrate/:currentVersion:/troubleshooting/#only-one-database-per-instance
+[all available extensions]: /ingest-and-migrate/:currentVersion:/troubleshooting/#extension-availability
+[tablespaces]: /ingest-and-migrate/:currentVersion:/troubleshooting/#tablespaces
+[no-superuser-for-timescale-instance]: /ingest-and-migrate/:currentVersion:/troubleshooting/#superuser-privileges
 [upgrade instructions]: /self-hosted/:currentVersion:/upgrades/about-upgrades/
 [pg_hbaconf]: https://www.timescale.com/blog/5-common-connection-errors-in-postgresql-and-how-to-solve-them/#no-pg_hbaconf-entry-for-host
 [create-ec2-instance]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html#ec2-launch-instance

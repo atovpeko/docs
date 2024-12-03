@@ -215,4 +215,4 @@ the [compression section](https://docs.timescale.com/use-timescale/latest/compre
 [upgrading-postgresql]: https://kb-managed.timescale.com/en/articles/5368016-perform-a-postgresql-major-version-upgrade
 [upgrading-postgresql-self-hosted]: /self-hosted/:currentVersion:/upgrades/upgrade-pg/
 [upgrading-timescaledb]: /self-hosted/:currentVersion:/upgrades/major-upgrade/
-[migration]: /migrate/:currentVersion:/
+[migration]: /ingest-and-migrate/:currentVersion:/

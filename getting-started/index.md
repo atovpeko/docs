@@ -14,8 +14,6 @@ import WhereNext from "versionContent/_partials/_where-to-next.mdx";
 
 <CloudIntro />
 
-Each database instance in Timescale is called a service.
-
 This section shows you how to:
 
 1.  [Create your first Timescale service][services-create]: create a first service in your Timescale Cloud project.  
@@ -28,7 +26,7 @@ Already know the basics? See the
 [more advanced tutorials][tutorials], or see how to
 [Use Timescale][use-timescale].
 
-[tutorials]: /tutorials/:currentVersion:/
+[tutorials]: /implement-use-cases/:currentVersion:/
 [use-timescale]: /use-timescale/:currentVersion:/
 [services-create]: /getting-started/:currentVersion:/services#create-your-timescale-account
 [services-connect]: /getting-started/:currentVersion:/services/#connect-to-your-service
