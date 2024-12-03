@@ -50,8 +50,8 @@ supported extensions:
 | [pgrouting][pgrouting]                           | Geospatial routing functionality                                       | -                              |
 | [pgrowlocks][pgrowlocks]                         | Show row-level locking information                                     | -                              |
 | [pgstattuple][pgstattuple]                       | Obtain tuple-level statistics                                          | -                              |
-| [pgvector][pgvector]                             | Vector similarity search for PostgreSQL                                | AI and vector services         |
-| [pgvectorscale][pgvectorscale]                   | Advanced indexing for vector data                                      | AI and vector services         | 
+| [pgvector][pgvector]                             | Vector similarity search for PostgreSQL                                | AI and vector                  |
+| [pgvectorscale][pgvectorscale]                   | Advanced indexing for vector data                                      | AI and vector                  | 
 | [plperl][plperl]                                 | PL/Perl procedural language                                            | -                              |
 | [plpgsql][plpgsql]                               | SQL procedural language                                                | All                            |
 | [postgis][postgis]                               | PostGIS geometry and geography spatial types and functions             | -                              |
