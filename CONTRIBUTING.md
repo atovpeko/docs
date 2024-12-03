@@ -1,202 +1,95 @@
 # Introduction
 
-There are multiple ways to help make Timescale better, including contributing
-to the documentation. All of our documentation is available to use and review
-with GitHub.
+Timescale documentation is open for contribution from all community members. This document explains the process
+and the guidelines to follow when contributing.
 
-## First contribution
+## Contribution process
 
-You can make contributions to the documentation by creating a fork of the
-repository. However, if you have write access to the repository, use a branch
-instead. Some of our automation does not work correctly on forks.
+You can contribute to Timescale documentation in the following ways:
 
-<Procedure>
+- Open a ticket in the [documentation repository][github-docs] and describe the proposed change. Our doc team will get in touch.
+- [Fork the documentation repository][github-fork] and propose changes there.
+- Create a branch from `latest` and raise a pull request directly in the documentation repository. For this, you need to have the write access.
 
-### Contributing using a fork
+When raising a PR, you will be prompted to sign a Contributor License Agreement (CLA). This helps to ensure that the community is free to use your contributions.
 
-1.  Make sure you have a [GitHub](https://github.com) account, and that
-    you're signed in.
-1.  Navigate to the
-    [Timescale documentation repo](https://github.com/timescale/docs),
-    click the `Fork` button in the top-right corner, and select the account you
-    want to use.
-1.  Wait for GitHub to create your fork and redirect you.
-1.  Clone the repository to your local machine. To find this URL, click the green
-    `Code` button and copy the HTTPS URL:
+Once you raise a PR for any branch, GitHub will **automatically** generate a preview for your changes and attach the link in the comments. Any new commits will be visible at the same URL. If you don't see the latest changes, try an incognito browser window.
 
-    ```bash
-    git clone https://github.com/<username>/docs.git
-    ```
+## Documentation guidelines
 
-1.  List the current remote branches:
+This section provides pointers on how to write, structure, and organize your contribution. Do not worry if you don't get it right on the first try - our documentation team is always there to help.
 
-    ```bash
-    git remote -v
-    ```
+### Language
 
-    This command should list two remotes, both marked `origin`, like this:
+Aim to write in a clear, concise, and actionable manner. Timescale documentation uses the [Google Developer Documentation Style Guide][google-style] with the following exceptions:
 
-    ```bash
-    origin  https://github.com/<username>/docs.git (fetch)
-    origin  https://github.com/<username>/docs.git (push)
-    ```
+- No capitalization after a colon.
 
-    The `origin` remotes are your own fork, and you can do whatever you want
-    here without changing the upstream repository.
-1.  Add the docs repo as an upstream:
+### Documentation structure
 
-    ```bash
-    git remote add upstream https://github.com/timescale/docs.git
-    ```
+Each major doc section has a dedicated directory with `.md` files inside, representing its child pages. This includes an `index.md` that serves as a landing page of that doc section. To edit a page for content, modify the corresponding `.md` file. 
 
-1.  Check:
+#### `page-index`
 
-    ```bash
-    git remote -v
-    ```
+The navigation hierarchy of a doc section is governed by `page-index/page-index.js` within the corresponding directory.  To change the structure, for example, add or delete pages in a section, modify the corresponding `page-index.js`.
 
-    This command should now have the same two `origin` remotes as before, plus
-    two more labelled `upstream`, like this:
+Every `page-index.js` includes the following fields: 
 
-    ```bash
-    origin  https://github.com/<username>/docs.git (fetch)
-    origin  https://github.com/<username>/docs.git (push)
-    upstream  https://github.com/timescale/docs.git (fetch)
-    upstream  https://github.com/timescale/docs.git (push)
-    ```
+|Key|Type|Required| Description|
+|-|-|-|-|
+|`href`|string|Yes| The URL segment to use for the page. If there is a corresponding Markdown file, `href` must also match the name of the Markdown file, minus the file extension.|
+|`title`|string|Yes| The title of the page, used as the page name within the TOC on the left. |
+|`type`|One of `[directory, placeholder, redirect-to-child-page]`|No| If no type is specified, the page is built as a default page, turning the corresponding Markdown file into a webpage. If the type is `directory`, the corresponding file is turned into a webpage, _and_ the page becomes a directory. `directory` pages are the exception to the rule that the page index matches the file directory structure. Child pages of `directory` pages sit on the same level as the `directory` page inside the repository. They only become children during the site build. If the type is `placeholder`, an entry is made in the navigation tree, but a Markdown file is not converted into a webpage. The Markdown file doesn't even need to exist. Rather, the corresponding page is produced programmatically upon site build. If not produced, the link in the navigation tree returns a 404. If the type is `redirect-to-child-page`, an entry is made in the navigation tree, no page is built, and the link in the navigation tree goes directly to the first child. |
+|`children`|Array of page entries|No| Child pages of the current page. If the parent page's type is not `directory`, the children should be located in a directory with the same name as the parent. The parent is the `index.md` file in that directory. If the parent page's type is `directory`, the children should be located in the same directory as the parent. |
+|`pageComponents`|One of `[['featured-cards'], ['content-list']]`|No| Any page that has child pages can list its children in either card or list style at the bottom of the page. Specify the desired style with this key.
 
-1.  Fetch the branches in the upstream repository:
+#### Partials
 
-    ```bash
-    git fetch upstream
-    ```
+Partials allow you to reuse snippets of content in multiple places. All partials
+live in the `_partials` top-level directory. To make a new partial, create a new
+`.md` file. The filename must be in CamelCase and start with an underscore.
 
-1.  Merge the changes from the upstream `latest` branch, into your fork's
-    `latest` branch:
+### Visuals
 
-    ```bash
-    git merge upstream/latest
-    ```
 
-1.  Create a new branch for the work you want to do. Make sure you give it an
-    appropriate name, and include your username:
+### Formatting
 
-    ```bash
-    git checkout -b update-readme-username
-    ```
+See the example page for available elements
 
-</Procedure>
+Variables
 
-<Procedure>
+Links
 
-### Committing changes and creating a pull request
 
-1.  Make your changes.
-1.  Add the updated files to your commit:
 
-    ```bash
-    git add .
-    ```
 
-1.  Commit your changes:
+### Meta tags
 
-    ```bash
-    git commit -m "Commit message here"
-    ```
 
-1.  Push your changes:
 
-    ```bash
-    git push
-    ```
 
-    If git prompts you to set an upstream in order to push, use this command:
 
-    ```bash
-    git push --set-upstream origin <branchname>
-    ```
 
-1.  Create a pull request (PR) by navigating to
-    <https://github.com/timescale/docs> and clicking
-    `Compare and Create Pull Request`. Write an informative commit message
-    detailing your changes, choose reviewers, and save your PR. If you haven't
-    yet finished the work you want to do, make sure you create a draft PR by
-    selecting it from the drop down box in the GitHub web UI. This lets your
-    reviewers know that you haven't finished work yet, while still being
-    transparent about what you are working on, and making sure we all understand
-    current progress.
 
-</Procedure>
 
-<Highlight type="important">
-Choose your reviewers carefully! If you have made changes to the technical
-detail of the documentation, choose an appropriate subject matter expert (SME)
-to review those changes. Additionally, every change requires at least one
-documentation team member to approve. Ask the documentation team for a review by
-adding the `timescale/documentation` group as a reviewer.
-</Highlight>
 
-## Second contribution
 
-When you have checked out the repo, if you want to keep working on things, you
-need to make sure that your local copy of the repo stays up to date. If you
-don't do this, you *will* end up with merge conflicts.
 
-<Procedure>
 
-### Second contribution
 
-1.  Check out your fork's `latest` branch:
 
-    ```bash
-    git checkout latest
-    ```
 
-    You get a message like this:
+[google-word-list]: https://developers.google.com/style/word-list
 
-    ```bash
-    Switched to branch 'latest'
-    Your branch is up to date with 'origin/latest'.
-    ```
 
-    BEWARE! This is usually a lie!
-1.  Fetch the branches in the upstream repository:
 
-    ```bash
-    git fetch upstream
-    ```
 
-1.  Merge the changes from the upstream `latest` branch, into your fork's
-    `latest` branch:
 
-    ```bash
-    git merge upstream/latest
-    ```
 
-1.  If you are continuing work you began earlier, check out the branch that
-    contains your work. For new work, create a new branch. Doing this regularly
-    as you are working means you keep your local copies up to date and avoid
-    conflicts. You should do it at least every day before you begin work, and
-    again whenever you switch branches.
 
-</Procedure>
 
-<Highlight type="warning">
-Never leave branches lying around on your local system. Create your PR as soon
-as possible, and make good use of the Draft feature. Commit to your feature
-branch early and often! Update your local copy from latest whenever you switch
-branches.
-</Highlight>
 
-## Reviewing standards
 
-When you create a pull request, a member of the documentation team will review
-it for accuracy and adherance to our standards. You can see a list of the things
-that reviewers check for in the pull request template.
 
-## Writing standards
-
-Timescale has comprehensive writing and style standards, that are constantly
-being updated and improved. For the current guidelines, see
-[contributing to documentation](https://docs.timescale.com/about/latest/contribute-to-docs/).
-
+[github-docs]: https://github.com/timescale/docs
+[github-fork]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo
