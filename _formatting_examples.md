@@ -67,3 +67,42 @@ def different_python:
 </Terminal>
 
 const highlightTypes = ["note", "important", "warning", "cloud", "deprecation"];
+
+
+Tabs
+
+<Tabs label="Description of section, used for accessibility">
+
+<Tab title="Title that is displayed on first tab">
+
+Content goes here
+
+</Tab>
+
+<Tab title="Title that is displayed on second tab">
+
+Content goes here
+
+</Tab>
+
+</Tabs>
+
+Note that spacing is important.
+
+### Tags
+
+You can use tags to indicate links to downloadable files, or to indicate
+metadata about functions. Available tags:
+
+*   Download tags: `<Tag type="download">Markdown link to download</Tag>`
+*   Experimental tags: `<Tag type="experimental" content="Experimental" />` or
+    `<Tag type="experimental-toolkit" content="Experimental" />`
+*   Toolkit tag: `<Tag type="toolkit" content="Toolkit" />`
+*   Community tag: `<Tag type="community" content="Community" />`
+
+By default, tags have a solid background and gray text. There is also a hollow
+variant:
+
+```markdown
+<Tag variant="hollow">Text to display in a tag</Tag>
+```

@@ -1,17 +1,21 @@
 # Introduction
 
-Timescale documentation is open for contribution from all community members. This document explains the process
-and the guidelines to follow when contributing.
+Timescale documentation is open for contribution from all community members. The current documentation source is in this repository. All documentation for previous versions is in the deprecated repository called [docs.timescale.com-content](https://github.com/timescale/docs.timescale.com-content). 
+
+This document explains the process and the guidelines to follow when contributing.
 
 ## Contribution process
 
 You can contribute to Timescale documentation in the following ways:
 
-- Open a ticket in the [documentation repository][github-docs] and describe the proposed change. Our doc team will get in touch.
-- [Fork the documentation repository][github-fork] and propose changes there.
-- Create a branch from `latest` and raise a pull request directly in the documentation repository. For this, you need to have the write access.
+- [Create an issue][docs-issues] in this repository and describe the proposed change. Our doc team will take care of it. 
+- [Fork this repository][github-fork] and propose changes in the fork.
+- If you have a write access to this repository, create a branch from `latest` and raise a pull request directly. 
 
 When raising a PR, you will be prompted to sign a Contributor License Agreement (CLA). This helps to ensure that the community is free to use your contributions.
+
+The documentation site is statically generated with [Gatsby][gatsby]. Its source code is in a separate private 
+repository, which pulls in content from this repository on each build.
 
 Once you raise a PR for any branch, GitHub will **automatically** generate a preview for your changes and attach the link in the comments. Any new commits will be visible at the same URL. If you don't see the latest changes, try an incognito browser window.
 
@@ -28,13 +32,13 @@ Aim to write in a clear, concise, and actionable manner. Timescale documentation
 
 ### Documentation structure
 
-Each major doc section has a dedicated directory with `.md` files inside, representing its child pages. This includes an `index.md` that serves as a landing page of that doc section. To edit a page for content, modify the corresponding `.md` file. 
+Each major doc section has a dedicated directory with `.md` files inside, representing its child pages. This includes an `index.md` that serves as a landing page of that doc section. To edit a page, modify the corresponding `.md` file. 
 
 #### `page-index`
 
-The navigation hierarchy of a doc section is governed by `page-index/page-index.js` within the corresponding directory.  To change the structure, for example, add or delete pages in a section, modify the corresponding `page-index.js`.
+The navigation hierarchy of a doc section is governed by `page-index/page-index.js` within the corresponding directory. To change the structure, for example, add or delete pages in a section, modify the corresponding `page-index.js`.
 
-Every `page-index.js` includes the following fields: 
+Every entry in a `page-index.js` includes the following fields: 
 
 |Key|Type|Required| Description|
 |-|-|-|-|
@@ -56,12 +60,14 @@ When adding screenshots to the docs, aim for a full-screen view to provide bette
 
 ### Formatting
 
-In addition to all the regular Markdown formatting, the following elements are available for Timescale docs:
+In addition to all the [regular Markdown formatting][markdown-syntaxt], the following elements are available for Timescale docs:
 
 - Procedure blocks
-- Highlights 
+- Highlight blocks
 - Tabs
 - Multi-tab code blocks
+- Tags
+- 
 
 See [Formatting examples](_formatting_examples.md) for how to use them. 
 
@@ -71,6 +77,17 @@ Timescale documentation uses variables for its product names, features, and UI e
 
 ### Links
 
+### Internal page links
+
+None of the internal page links within these files work on GitHub inside of
+the raw Markdown files that are being reviewed. Instead, the review link discussed
+above should be utilized for verifying all internal links.
+
+Internal links do not need to include the domain name, <https://docs.timescale.com>.
+
+### External links:
+
+Input as-is.
 
 
 
@@ -78,29 +95,9 @@ Timescale documentation uses variables for its product names, features, and UI e
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+[gatsby]:(https://www.gatsbyjs.com/)
+[docs-issues]: https://github.com/timescale/docs/issues
 [google-word-list]: https://developers.google.com/style/word-list
-
-
-
-
-
-
-
-
-
-
-
+[markdown-syntaxt]: https://www.markdownguide.org/extended-syntax/
 [github-docs]: https://github.com/timescale/docs
 [github-fork]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo

@@ -1,117 +1,7 @@
-# README
-
-This is the source for content for docs.timescale.com, starting with release 2.0.
-All documentation for previous versions is in the deprecated repository called
-[docs.timescale.com-content](https://github.com/timescale/docs.timescale.com-content).
-
-The documentation site is statically generated with
-[Gatsby](https://www.gatsbyjs.com/). The source code is in a separate
-repository, which pulls in content from this repository on each build.
-
-**All files are written in standard markdown.**
-
-## Contributing
-
-We welcome and appreciate any help the community can provide to make
-Timescale's documentation better.
-
-You can help either by opening an
-[issue](https://github.com/timescale/docs/issues) with
-any suggestions or bug reports, or by forking this repository, making your own
-contribution, and submitting a pull request.
-
-Before we accept any contributions, Timescale contributors need to
-sign the [Contributor License Agreement](https://cla-assistant.io/timescale/docs)(CLA).
-By signing a CLA, we can ensure that the community is free and confident in its
-ability to use your contributions.
-
-## Docs review
-
-Once a PR has been started for any branch, a GitHub action will attach a unique
-URL to preview your changes and allow others to more effectively review your
-updates. The URL will be added as a comment to your PR.
-
-Any new commits to that PR will rebuild and be visible at the same URL.
-
-## Main sections and tree navigation
-
-Each major section that is incorporated into docs.timescale.com has a navigation
-hierarchy governed by the appropriate `page-index.js` file and underlying
-directory structure. Depending on the content you are adding or editing, you may
-have to modify the `page-index.js` file that exists for that specific sub-project.
-
-For instance, if you are adding a new function to the 'API Reference' section,
-then you need to modify the `page-index.js` file inside of `api-reference` folder,
-specifically at `api-reference/page-index/page-index.js`.
-
-Most content is then held within the parent folder as defined by the hierarchy. For
-instance, the **Overview** section is a parent to a number of other pages and
-folders. Therefore, there is a folder in the repo for `overview` with more Markdown
-files and folder inside as the hierarchy dictates.
-
-As a general rule, every folder must have an `index.md` file inside which will
-have the content and layout for the "landing page" of that parent folder.
-
-### `page-index.js` layout
-
-The format of this file is generally self explanatory, but the following
-rules should be understood to ensure you get the results you expect.
-
-|Key|Type|Required|Description|
-|-|-|-|-|
-|`href`|string|Yes|The URL segment to use for the page. If there is a corresponding Markdown file, `href` must also match the name of the Markdown file, minus the file extension.|
-|`title`|string|Yes|The title of the page, used as the page name within the navigation tree|
-|`type`|One of `[directory, placeholder, redirect-to-child-page]`|No|If no type is specified, the page is built as a default page, turning the corresponding Markdown file into a webpage. If the type is `directory`, the corresponding file is turned into a webpage, _and_ the page becomes a directory. `directory` pages are the exception to the rule that the page index matches the file directory structure. Child pages of `directory` pages sit on the same level as the `directory` page inside the repository. They only become children during the site build. If the type is `placeholder`, an entry is made in the navigation tree, but a Markdown file is not converted into a webpage. The Markdown file doesn't even need to exist. Rather, the corresponding page is produced programmatically upon site build. If not produced, the link in the navigation tree returns a 404. If the type is `redirect-to-child-page`, an entry is made in the navigation tree, no page is built, and the link in the navigation tree goes directly to the first child.|
-|`children`|Array of page entries|No|Child pages of the current page. If the parent page's type is not `directory`, the children should be located in a directory with the same name as the parent. The parent is the `index.md` file in that directory. If the parent page's type is `directory`, the children should be located in the same directory as the parent.|
-|`pageComponents`|One of `[['featured-cards'], ['content-list']]`|No|Any page that has child pages can list its children in either card or list style at the bottom of the page. Specify the desired style with this key.|
-
-**Example**
-
-```js
-    href: "overview",
-    pageComponents: ["featured-cards"],
-    children: [
-        {
-            title: "What is time-series data?",
-            href: "what-is-time-series-data",
-        },
-        {
-            title: "Core concepts",
-            href: "core-concepts",
-            children : [
-                {
-                    title: "Hypertables & Chunks",
-                    href: "hypertables-and-chunks",
-                },
-                {
-                    title: "Scaling",
-                    href: "scaling",
-                },
-                ...
-            ],
-        },
-    ]
-```
 
 ## Formatting and content rules
 
-### Internal page links
 
-None of the internal page links within these files work on GitHub inside of
-the raw Markdown files that are being reviewed. Instead, the review link discussed
-above should be utilized for verifying all internal links.
-
-Internal links do not need to include the domain name, <https://docs.timescale.com>.
-
-### External links:
-
-Input as-is.
-
-### Anchor tags
-
-By default, H1, H2, H3, and H4 headings have automatically generated anchor
-tags. H2 headings also show up in the Table of Contents (on the right side of
-the screen on wide windows).
 
 ### Code blocks
 
@@ -138,14 +28,7 @@ or this:
 
 Otherwise the code highlighter may be disrupted.
 
-#### Syntax highlighting
 
-When using a code block, add the appropriate language identifier after the
-initial three backticks to provide the appropriate highlighting on the
-rendered documentation site.
-
-Programming language samples aside, most code blocks are one of:
-`bash`, `sql`, `json`.
 
 #### Line numbers and copy button
 
