@@ -1,8 +1,8 @@
-# Introduction
+# Contribute to Timescale documentation
 
-Timescale documentation is open for contribution from all community members. The current documentation source is in this repository. All documentation for previous versions is in the deprecated repository called [docs.timescale.com-content](https://github.com/timescale/docs.timescale.com-content). 
+Timescale documentation is open for contribution from all community members. The current documentation source is in this repository. The previous source is in the deprecated repository called [docs.timescale.com-content](https://github.com/timescale/docs.timescale.com-content). 
 
-This document explains the process and the guidelines to follow when contributing.
+This document explains the process and guidelines to follow when contributing.
 
 ## Contribution process
 
@@ -15,7 +15,7 @@ You can contribute to Timescale documentation in the following ways:
 When raising a PR, you will be prompted to sign a Contributor License Agreement (CLA). This helps to ensure that the community is free to use your contributions.
 
 The documentation site is statically generated with [Gatsby][gatsby]. Its source code is in a separate private 
-repository, which pulls in content from this repository on each build.
+repository, which pulls in the content from this repository on each build.
 
 Once you raise a PR for any branch, GitHub will **automatically** generate a preview for your changes and attach the link in the comments. Any new commits will be visible at the same URL. If you don't see the latest changes, try an incognito browser window.
 
@@ -28,17 +28,44 @@ This section provides pointers on how to write, structure, and organize your con
 Aim to write in a clear, concise, and actionable manner. Timescale documentation uses the [Google Developer Documentation Style Guide][google-style] with the following exceptions:
 
 - Do not capitalize the first word after a colon.
-- Use code font (back ticks) for UI elements instead of bold. 
+- Use code font (back ticks) for UI elements instead of bold.
 
 ### Documentation structure
 
-Each major doc section has a dedicated directory with `.md` files inside, representing its child pages. This includes an `index.md` that serves as a landing page of that doc section. To edit a page, modify the corresponding `.md` file. 
+#### Individual page structure 
 
-#### `page-index`
+Each major doc section has a dedicated directory with `.md` files inside, representing its child pages. This includes an `index.md` that serves as a landing page of that doc section. To edit a page, modify the corresponding `.md` file following these recommendations: 
+
+- **Regular pages**: use your judgement and other pages for reference when deciding how to organize your contribution. Split your page into logical paragraphs, use visual aids, and link to other resources where necessary.
+- **API pages** should include:
+
+  - The function name, with empty parentheses if it takes arguments. 
+  - A brief, specific description of the function, including any possible warnings. 
+  - One or two samples of the function being used to demonstrate argument syntax.
+  - An argument table with Name, Type, Default, Required, Description columns.
+  - A return table with Column, Type, and Description columns.
+
+- **Troubleshooting pages** are not written as whole Markdown files, but are programmatically assembled from individual files in the`_troubleshooting` folder. Each entry describes a single troubleshooting case and its solution, and contains the following front matter:
+    
+    |Key| Type                                                 |Required| Description                                                                                                                                                                          |
+    |-|------------------------------------------------------|-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    |`title`| string                                               |Yes| The title of the troubleshooting entry, displayed as a heading above it                                                                                                              |
+    |`section`| The literal string `troubleshooting`                 |Yes| Must be `troubleshooting`, used to identify troubleshooting entries during site build                                                                                                |
+    |`products` or `topics`| array of strings                                     |Yes (can have either or both, but must have at least one)| The products or topics related to the entry. The entry will show up on the troubleshooting pages for the listed products and topics.                                                 |
+    |`errors`| object of form `{language: string, message: string}` |No| The error, if any, related to the troubleshooting entry. Displayed as a code block right underneath the title. `language` is the programming language to use for syntax highlighting. |
+    |`keywords`| array of strings                                     |No| These are displayed at the bottom of every troubleshooting page. Each keyword links to a collection of all pages associated with that keyword.                                       |
+    |`tags`| array of strings                                     |No| Concepts, actions, or things associated with the troubleshooting entry. These are not displayed in the UI, but they affect the calculation of related pages.                         |
+    
+    Beneath the front matter, describe the error and its solution in regular Markdown. You can also use any other components allowed within the docs site.
+    
+    The entry shows up on the troubleshooting pages for its associated products and topics. If the page doesn't already exist, add an entry for it in the page
+    index, setting `type` to `placeholder`. See [Navigation tree](#navigation-tree).
+
+#### Navigation tree
 
 The navigation hierarchy of a doc section is governed by `page-index/page-index.js` within the corresponding directory. To change the structure, for example, add or delete pages in a section, modify the corresponding `page-index.js`.
 
-Every entry in a `page-index.js` includes the following fields: 
+An entry in a `page-index.js` includes the following fields: 
 
 |Key|Type|Required| Description|
 |-|-|-|-|
@@ -52,22 +79,19 @@ Every entry in a `page-index.js` includes the following fields:
 
 Partials allow you to reuse snippets of content in multiple places. All partials
 live in the `_partials` top-level directory. To make a new partial, create a new
-`.md` file. The filename must be in CamelCase and start with an underscore. Then import it into the target page. See [Formatting examples](_formatting_examples.md).
-
-### Visuals
-
-When adding screenshots to the docs, aim for a full-screen view to provide better context. Attach the image to your issue or PR, and the doc team will upload and insert it for you. 
+`.md` file in this directory. The filename must start with an underscore. Then import it into the target page and reference in the relevant place. See [Formatting examples](_formatting_examples.md).
 
 ### Formatting
 
-In addition to all the [regular Markdown formatting][markdown-syntaxt], the following elements are available for Timescale docs:
+In addition to all the [regular Markdown formatting][markdown-syntax], the following elements are available for Timescale docs:
 
 - Procedure blocks
 - Highlight blocks
 - Tabs
+- Custom code blocks
 - Multi-tab code blocks
 - Tags
-- 
+- Optional label
 
 See [Formatting examples](_formatting_examples.md) for how to use them. 
 
@@ -77,21 +101,33 @@ Timescale documentation uses variables for its product names, features, and UI e
 
 ### Links
 
-### Internal page links
+Most links should be reference-style links where the link address is at the bottom of the page. The one exception is links within highlight blocks - these should be inline links. 
 
-None of the internal page links within these files work on GitHub inside of
-the raw Markdown files that are being reviewed. Instead, the review link discussed
-above should be utilized for verifying all internal links.
+- Internal page links: internal links do not need to include the domain name `https://docs.timescale.com`. Use the `:currentVersion:` variable instead of `latest` in the URL.
+- External links: input external links as is. 
 
-Internal links do not need to include the domain name, <https://docs.timescale.com>.
+See [Formatting examples](_formatting_examples.md) for details. 
 
-### External links:
+### Visuals
 
-Input as-is.
+When adding screenshots to the docs, aim for a full-screen view to provide better context. Attach the image to your issue or PR, and the doc team will upload and insert it for you.
+
+### SEO optimization 
+
+To make a documentation page more visible and clear for Google: 
+
+- Include a `title` and `excerpt` meta tags at the top of the page. These represent meta title and description required for SEO optimization.
+
+  - `title`: up to 60 characters, a short description of the page contents. In most cases a variation of the page title. 
+  - `excerpt`: under 200 characters, a longer description of the page contents. In most cases a variation of the page intro. 
+
+- Summarize each paragraph contents in the first sentence of that paragraph. 
+- Include main page keywords into the meta tags, page title, first header, and intro. 
 
 
 
-### Meta tags
+
+
 
 
 

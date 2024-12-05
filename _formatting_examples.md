@@ -1,108 +1,159 @@
+# Formatting examples 
 
-<Procedure>
+This page explains how to use the formatting available for Timescale documentation and how it renders on the website. Note that for most elements, spacing is important. 
 
-### Procedure Title
+## Procedure
 
-1.  Do this
+```text
+  <Procedure>
 
-  ```bash
-  code code code
-  ```
+  1.  **Step 1 summary in bold**
 
-2.  Then do this
+      Optional step 1 explanation and details.
 
-  ```ruby
-  def function
-    print('hello')
-  ```
+      ```
+      step 1 code
+      ```
 
-3.  TimescaleDB is a time-series database, built on top of PostgreSQL. More than that,
-    however, it's a relational database for time-series. Developers who use TimescaleDB
-    get the benefit of a purpose-built time-series database, plus a classic relational
-    database (PostgreSQL), all in one, with full SQL support.
+  1.  `<Optional />` **Step 2 summary in bold**
 
-  ```python
-  def start:
-    print('start')
-  ```
+      Optional step 2 explanation and details.
 
-</Procedure>
+      ```
+      step 2 code
+      ```
 
-<!-- Note the spacing and labeling are very important! -->
-<Terminal>
-
-<tab label='ruby'>
-
-```ruby
-class AddTimescale < ActiveRecord::Migration[5.2]
-  def change
-    enable_extension("timescaledb") unless extensions.include? "timescaledb"
-  end
-end
+  </Procedure>
 ```
+  
+## Highlight blocks
 
-</tab>
+```text
+<Highlight type="note">
+Additional relevant information worth highlighting.
+</Highlight>
 
-<tab label="python-1">
+<Highlight type="important">
+Important things to keep in mind.
+</Highlight>
 
-```python
-def start:
-  if this:
-    return
+<Highlight type="warning">
+Caution!
+</Highlight>
 
-```
+<Highlight type="deprecation">
+A deprecation notice.
+</Highlight>
 
-</tab>
-
-<tab label="python-2">
-
-```python
-def different_python:
-  return
+<Highlight type="cloud">
+A note dealing specifically with Timescale Cloud.
+</Highlight>
 
 ```
 
-</tab>
+## Tabs
 
-</Terminal>
-
-const highlightTypes = ["note", "important", "warning", "cloud", "deprecation"];
-
-
-Tabs
+```text
 
 <Tabs label="Description of section, used for accessibility">
 
-<Tab title="Title that is displayed on first tab">
+<Tab title="First tab title">
 
-Content goes here
+First tab content
 
 </Tab>
 
-<Tab title="Title that is displayed on second tab">
+<Tab title="Second tab title">
 
-Content goes here
+Second tab content
 
 </Tab>
 
 </Tabs>
-
-Note that spacing is important.
-
-### Tags
-
-You can use tags to indicate links to downloadable files, or to indicate
-metadata about functions. Available tags:
-
-*   Download tags: `<Tag type="download">Markdown link to download</Tag>`
-*   Experimental tags: `<Tag type="experimental" content="Experimental" />` or
-    `<Tag type="experimental-toolkit" content="Experimental" />`
-*   Toolkit tag: `<Tag type="toolkit" content="Toolkit" />`
-*   Community tag: `<Tag type="community" content="Community" />`
-
-By default, tags have a solid background and gray text. There is also a hollow
-variant:
-
-```markdown
-<Tag variant="hollow">Text to display in a tag</Tag>
 ```
+
+## Custom code blocks 
+
+Use the `CodeBlock` component with `canCopy` and `showLineNumbers` set to `false` to remove line numbers and the copy button from the native Markdown code blocks.
+
+```text
+<CodeBlock canCopy={false} showLineNumbers={false} children={`
+code 
+code 
+code
+`} />
+```
+
+## Multi-tab code blocks
+
+    <Terminal>
+    
+    <tab label='ruby'>
+    
+    ```ruby
+    ruby code
+    ```
+    
+    </tab>
+    
+    <tab label="python-1">
+    
+    ```python
+    pyhon code
+    ```
+    
+    </tab>
+    
+    <tab label="python-2">
+    
+    ```python
+    different python code
+    ```
+    
+    </tab>
+    
+    </Terminal>
+
+
+## Tags
+
+Use tags to indicate links to downloadable files or metadata about functions. By default, tags have a solid background and gray text. There is also a hollow
+variant.
+
+- `<Tag type="download">Markdown link to download</Tag>`
+- `<Tag type="experimental" content="Experimental" />` or `<Tag type="experimental-toolkit" content="Experimental" />`
+- `<Tag type="toolkit" content="Toolkit" />`
+- `<Tag type="community" content="Community" />`
+- `<Tag variant="hollow">Text to display in a tag</Tag>`
+
+
+## Partials
+
+Import a partial into the page after front matter:
+
+`import PartialName from 'versionContent/_partials/_partial-name.mdx';`
+
+Reference the partial in the doc: 
+
+`<PartialName />`
+
+## Links
+
+In-line internal link:
+
+[Anchor](URL)
+
+In-line external link:
+
+[Anchor](URL)
+
+Reference style link: 
+
+[Anchor][reference]
+
+[reference]: URL
+
+## Variables 
+
+- Syntax: $VARIABLE_NAME
+
