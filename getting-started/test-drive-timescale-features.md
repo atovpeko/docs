@@ -54,7 +54,14 @@ relational and time-series data from external files.
           1. Drag `<local folder>/tutorial_sample_company.csv`.
           1. Change `New table name` to `company`, then click `Upload CSV`.
           1. Use the same process to upload `<local folder>/tutorial_sample_tick.csv` to the `stocks_real_time` table.
-        
+          1. Convert the `stocks_real_time relational` relational table to a hypertable. 
+       
+             In $CONSOLE. click `SQL editor`, then run the following query:
+    
+             ```sql   
+             SELECT create_hypertable('stocks_real_time', by_range('time'), migrate_data => TRUE);
+             ```
+
        </Tab>
         
        <Tab title="psql">
@@ -133,17 +140,16 @@ interval. For example, a 5-minute, 1-hour, or 3-day bucket. The data grouped in 
 timestamp. Continuous aggregates minimize the number of records that you need to look up to perform your 
 query.
 
-
 This section show you how to run fast analytical queries using time buckets and continuous aggregates.
 
 <Procedure>
 
 1.  **Create a continuous aggregate**
-  
-    In a continuous aggregate, data grouped using a time bucket is stored in a 
+
+    In a continuous aggregate, data grouped using a time bucket is stored in a
     PostgreSQL `MATERIALIZED VIEW` in a hypertable. `timescaledb.continuous` ensures that this data
     is always up to date.
-    In your SQL editors, use the following code to create a continuous aggregate on the real time data in
+    In your SQL editor, use the following code to create a continuous aggregate on the real time data in
     the `stocks_real_time` table:
 
     ```sql
@@ -160,6 +166,9 @@ This section show you how to run fast analytical queries using time buckets and 
     GROUP BY day, symbol;
     ```
 
+    This continuous aggregate creates the [candlestick chart][charts] data you use to visualize
+    the price change of an asset.
+
 1.  **Have a quick look at your data**
 
     You query continuous aggregates exactly the same way as your other tables, enable [compression][compression]
@@ -170,11 +179,46 @@ This section show you how to run fast analytical queries using time buckets and 
 
     <TryItOutCodeBlock queryId="getting-started-cagg" />
 
+
 </Procedure>
+
+To see the change in terms of query time and data returned between a regular query and
+a continuous aggregate, run the query part of the continuous aggregate
+( `SELECT ...GROUP BY day, symbol;` ) and compare the results.
 
 ## Reduce storage charges on older data using compression
 
-Sigh
+Compressing your time-series data allows you to reduce your chunk size by more than 90%. This saves on 
+storage costs, while your queries continue to operate at lightning speed. 
+
+New data is added to your database in the form of uncompressed rows. When you enable 
+compression, TimescaleDB uses a built-in job scheduler to compress the data in a hypertable
+chunk-by-chunk. In a compressed chunk, multiple records are grouped into a single row. Best practice is to
+compress data that is no longer needed for highest performance queries, but is still access regularly.
+For example, last week's stock market data.
+
+<Procedure>
+
+1.  **Enable compression**
+
+    In your SQL editor, use the following code to compress the data in a continuous aggregate:
+
+    ```sql
+    ALTER TABLE stock_candlestick_daily SET (
+      timescaledb.compress,
+      timescaledb.compress_segmentby = 'symbol'
+    );
+    ```
+
+1.  **Add a compression policy**
+
+    ```sql
+    SELECT add_compression_policy('stock_candlestick_daily', INTERVAL '7 days');
+    ```
+    
+</Procedure>
+
+
 
 ## Reduce storage charges for rarely accessed data using tiered storage
 
@@ -189,3 +233,4 @@ Sigh
 [data-tiering]: /use-timescale/:currentVersion:/data-tiering/
 [compression]: /use-timescale/:currentVersion:/compression/
 [hierarchical-caggs]: /use-timescale/:currentVersion:/continuous-aggregates/hierarchical-continuous-aggregates/
+[charts]: https://www.investopedia.com/terms/c/candlestick.asp
