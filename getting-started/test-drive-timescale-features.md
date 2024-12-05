@@ -40,9 +40,10 @@ relational and time-series data from external files.
     1. Unzip <Tag type="download">[real_time_stock_data.zip](https://assets.timescale.com/docs/downloads/get-started/real_time_stock_data.zip)</Tag> to a `<local folder>`.
 
        The dataset contains second-by-second stock-trade data for the top 100 most-traded symbols
-       and a regular table of company symbols and company names.
+       and a regular table of company symbols and company names. The stock-trade data is already 
+       organized for you in a hypertable.
 
-    1. Upload data from the CSV files to your $SERVICE_SHORT.
+    1. Upload data from the CSV files to your $SERVICE_SHORT:
     
        <Tabs label="Upload data to ">
 
@@ -104,6 +105,7 @@ relational and time-series data from external files.
 
 1.  **Have a quick look at your data**  
 
+    You query hypertables in exactly the same way as you would a relational PostgreSQL table.
     Use one of the following SQL editors to run a query and see the data you uploaded:
     - **Data mode**:  write queries, visualize data, and share your results in [$CONSOLE][portal-data-mode] for all your $SERVICE_LONGs.
     - **SQL editor**: write, fix, and organize SQL faster and more accurately in [$CONSOLE][portal-ops-mode] for a $SERVICE_LONG.
@@ -121,19 +123,54 @@ To fully understand how hypertables work, see [About hypertables][about-hypertab
 
 Aggregation is a way of combing data to get insights from it. Average, sum, and count are all 
 example of simple aggregates. However, with large amounts of data aggregation slows things down, quickly.
-
-Continuous aggregates minimize the number of records that you need to look up to perform your query. 
+ 
 Continuous aggregates are a kind of hypertable that is refreshed automatically in 
 the background as new data is added, or old data is modified. Changes to your dataset are tracked, 
 and the hypertable behind the continuous aggregate is automatically updated in the background.
 
-You query continuous aggregates exactly the same way as your other tables, enable [compression][compression]
-or [tiered storage][data-tiering]. You can even
-create [continuous aggregates on top of your continuous aggregates][hierarchical-caggs].
+You use time buckets to create a continuous aggregate. Time buckets aggregate data in hypertables by time 
+interval. For example, a 5-minute, 1-hour, or 3-day bucket. The data grouped in a time bucket use a single 
+timestamp. Continuous aggregates minimize the number of records that you need to look up to perform your 
+query.
+
 
 This section show you how to run fast analytical queries using time buckets and continuous aggregates.
 
+<Procedure>
 
+1.  **Create a continuous aggregate**
+  
+    In a continuous aggregate, data grouped using a time bucket is stored in a 
+    PostgreSQL `MATERIALIZED VIEW` in a hypertable. `timescaledb.continuous` ensures that this data
+    is always up to date.
+    In your SQL editors, use the following code to create a continuous aggregate on the real time data in
+    the `stocks_real_time` table:
+
+    ```sql
+    CREATE MATERIALIZED VIEW stock_candlestick_daily
+    WITH (timescaledb.continuous) AS
+    SELECT
+    time_bucket('1 day', "time") AS day,
+    symbol,
+    max(price) AS high,
+    first(price, time) AS open,
+    last(price, time) AS close,
+    min(price) AS low
+    FROM stocks_real_time srt
+    GROUP BY day, symbol;
+    ```
+
+1.  **Have a quick look at your data**
+
+    You query continuous aggregates exactly the same way as your other tables, enable [compression][compression]
+    or [tiered storage][data-tiering]. You can even
+    create [continuous aggregates on top of your continuous aggregates][hierarchical-caggs].
+
+    To query the `stock_candlestick_daily` continuous aggregate for all stocks:
+
+    <TryItOutCodeBlock queryId="getting-started-cagg" />
+
+</Procedure>
 
 ## Reduce storage charges on older data using compression
 
