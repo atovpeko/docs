@@ -120,20 +120,23 @@ code
 Use tags to indicate links to downloadable files or metadata about functions. By default, tags have a solid background and gray text. There is also a hollow
 variant.
 
-- `<Tag type="download">Markdown link to download</Tag>`
-- `<Tag type="experimental" content="Experimental" />` or `<Tag type="experimental-toolkit" content="Experimental" />`
-- `<Tag type="toolkit" content="Toolkit" />`
-- `<Tag type="community" content="Community" />`
-- `<Tag variant="hollow">Text to display in a tag</Tag>`
+```text
+<Tag type="download">Markdown link to download</Tag>
 
+<Tag type="experimental" content="Experimental" /> or <Tag type="experimental-toolkit" content="Experimental" 
+
+<Tag type="toolkit" content="Toolkit" />
+
+<Tag type="community" content="Community" />
+
+<Tag variant="hollow">Text to display in a tag</Tag>
+```
 
 ## Partials
 
-Import a partial into the page after front matter:
-
 `import PartialName from 'versionContent/_partials/_partial-name.mdx';`
 
-Reference the partial in the doc: 
+Other page content goes here
 
 `<PartialName />`
 
