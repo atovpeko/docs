@@ -139,21 +139,18 @@ Reference the partial in the doc:
 
 ## Links
 
-In-line internal link:
+```text
+[In-line internal link](URL)
 
-[Anchor](URL)
+[In-line external link](URL)
 
-In-line external link:
 
-[Anchor](URL)
-
-Reference style link: 
-
-[Anchor][reference]
+[Reference style link][reference]
 
 [reference]: URL
+```
 
 ## Variables 
 
-- Syntax: $VARIABLE_NAME
+- Syntax: `$VARIABLE_NAME`
 
