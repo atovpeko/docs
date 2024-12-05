@@ -15,6 +15,11 @@ module.exports = [
         excerpt: "Run your queries securely from inside Timescale Console",
       },
       {
+        title: "Test drive Timescale features",
+        href: "test-drive-timescale-features",
+        excerpt: "Improve database performance with Hypertables, time bucketing, compression and continuous aggregates",
+      },
+      {
         title: "Tables and hypertables",
         href: "tables-hypertables",
         excerpt: "Create tables and hypertables for your data",
