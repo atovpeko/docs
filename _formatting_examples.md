@@ -5,56 +5,72 @@ This page explains how to use the formatting available for Timescale documentati
 ## Procedure
 
 ```text
-  <Procedure>
+<Procedure>
 
-  1.  **Step 1 summary in bold**
+1.  **Step 1 summary in bold**
 
-      Optional step 1 explanation and details.
+    Optional step 1 explanation and details.
 
-      ```
-      step 1 code
-      ```
+    ```
+    step 1 code
+    ```
 
-  1.  `<Optional />` **Step 2 summary in bold**
+1.  `<Optional />` **Step 2 summary in bold**
 
-      Optional step 2 explanation and details.
+    Optional step 2 explanation and details.
 
-      ```
-      step 2 code
-      ```
+    ```
+    step 2 code
+    ```
 
-  </Procedure>
+</Procedure>
 ```
   
 ## Highlight blocks
 
 ```text
 <Highlight type="note">
+
 Additional relevant information worth highlighting.
-</Highlight>
 
+</Highlight>
+```
+
+```text
 <Highlight type="important">
+
 Important things to keep in mind.
-</Highlight>
 
+</Highlight>
+```
+
+```text
 <Highlight type="warning">
+
 Caution!
-</Highlight>
 
+</Highlight>
+```
+
+```text
 <Highlight type="deprecation">
+
 A deprecation notice.
-</Highlight>
 
+</Highlight>
+```
+
+```text
 <Highlight type="cloud">
-A note dealing specifically with Timescale Cloud.
-</Highlight>
 
+A note dealing specifically with Timescale Cloud.
+
+</Highlight>
 ```
 
 ## Tabs
 
 ```text
-
 <Tabs label="Description of section, used for accessibility">
 
 <Tab title="First tab title">
@@ -89,31 +105,30 @@ code
     <Terminal>
     
     <tab label='ruby'>
-    
+        
     ```ruby
     ruby code
     ```
-    
+        
     </tab>
-    
+        
     <tab label="python-1">
-    
+        
     ```python
     pyhon code
     ```
-    
+        
     </tab>
-    
+        
     <tab label="python-2">
-    
+        
     ```python
     different python code
     ```
-    
+        
     </tab>
-    
+        
     </Terminal>
-
 
 ## Tags
 
@@ -122,38 +137,43 @@ variant.
 
 ```text
 <Tag type="download">Markdown link to download</Tag>
-
+```
+```text
 <Tag type="experimental" content="Experimental" /> or <Tag type="experimental-toolkit" content="Experimental" 
+```
 
+```text
 <Tag type="toolkit" content="Toolkit" />
+```
 
+```text
 <Tag type="community" content="Community" />
+```
 
+```text
 <Tag variant="hollow">Text to display in a tag</Tag>
 ```
 
 ## Partials
 
-`import PartialName from 'versionContent/_partials/_partial-name.mdx';`
+```text
+import PartialName from 'versionContent/_partials/_partial-name.mdx';
 
-Other page content goes here
+Page content preceding the partial.
 
-`<PartialName />`
+<PartialName />
+
+Page content following the partial.
+```
 
 ## Links
 
 ```text
-[In-line internal link](URL)
+[anchor][reference-name]
 
-[In-line external link](URL)
+Page content goes here.
 
-
-[Reference style link][reference]
-
-[reference]: URL
+[reference-name]: /doc-section-name/:currentVersion:/path/to/page
 ```
 
-## Variables 
-
-- Syntax: `$VARIABLE_NAME`
 

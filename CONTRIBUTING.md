@@ -1,6 +1,6 @@
 # Contribute to Timescale documentation
 
-Timescale documentation is open for contribution from all community members. The current documentation source is in this repository. The previous source is in the deprecated repository called [docs.timescale.com-content](https://github.com/timescale/docs.timescale.com-content). 
+Timescale documentation is open for contribution from all community members. The current documentation source is in this repository. The previous source is in the deprecated repository called [docs.timescale.com-content][legacy-source]. 
 
 This document explains the process and guidelines to follow when contributing.
 
@@ -97,11 +97,14 @@ See [Formatting examples](_formatting_examples.md) for how to use them.
 
 ### Variables
 
-Timescale documentation uses variables for its product names, features, and UI elements in Timescale Console. See [Formatting examples](_formatting_examples.md) for the variables list and use syntax. 
+Timescale documentation uses variables for its product names, features, and UI elements in Timescale Console with the following syntax: `$VARIABLE_NAME`. Variables do not work inside the following: 
+
+- Front matter 
+- HTML tables
 
 ### Links
 
-Most links should be reference-style links where the link address is at the bottom of the page. The one exception is links within highlight blocks - these should be inline links. 
+Links should be reference-style links where the link address is at the bottom of the page. 
 
 - Internal page links: internal links do not need to include the domain name `https://docs.timescale.com`. Use the `:currentVersion:` variable instead of `latest` in the URL.
 - External links: input external links as is. 
@@ -124,16 +127,10 @@ To make a documentation page more visible and clear for Google:
 - Summarize each paragraph contents in the first sentence of that paragraph. 
 - Include main page keywords into the meta tags, page title, first header, and intro. 
 
-
-
-
-
-
-
-
-[gatsby]:(https://www.gatsbyjs.com/)
+[legacy-source]: https://github.com/timescale/docs.timescale.com-content
 [docs-issues]: https://github.com/timescale/docs/issues
-[google-word-list]: https://developers.google.com/style/word-list
-[markdown-syntaxt]: https://www.markdownguide.org/extended-syntax/
-[github-docs]: https://github.com/timescale/docs
 [github-fork]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo
+[gatsby]: https://www.gatsbyjs.com/
+[google-style]: https://developers.google.com/style
+[markdown-syntax]: https://www.markdownguide.org/extended-syntax/
+[github-docs]: https://github.com/timescale/docs
