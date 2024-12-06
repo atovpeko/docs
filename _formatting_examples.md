@@ -28,7 +28,7 @@ This page explains how to use the formatting available for Timescale documentati
 
 ![Procedure example](https://assets.timescale.com/docs/images/procedure-example.png)
 
-The Optional tag is used to mark steps that are not required. 
+The `Optional` tag is used to mark steps that are not required. 
   
 ## Highlight blocks
 
