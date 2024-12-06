@@ -9,15 +9,15 @@ This page explains how to use the formatting available for Timescale documentati
 
 1.  **Step 1 summary in bold**
 
-    Optional step 1 explanation and details.
+    Step 1 explanation and details.
 
     ```
     step 1 code
     ```
 
-1.  `<Optional />` **Step 2 summary in bold**
+1.  **Step 2 summary in bold** <Optional />
 
-    Optional step 2 explanation and details.
+    Step 2 explanation and details.
 
     ```
     step 2 code
@@ -25,6 +25,8 @@ This page explains how to use the formatting available for Timescale documentati
 
 </Procedure>
 ```
+
+![Procedure example](https://assets.timescale.com/docs/images/procedure-example.png)
   
 ## Highlight blocks
 
@@ -139,7 +141,7 @@ variant.
 <Tag type="download">Markdown link to download</Tag>
 ```
 ```text
-<Tag type="experimental" content="Experimental" /> or <Tag type="experimental-toolkit" content="Experimental" 
+<Tag type="experimental" content="Experimental" /> or <Tag type="experimental-toolkit" content="Experimental"/> 
 ```
 
 ```text
@@ -171,9 +173,9 @@ Page content following the partial.
 ```text
 [anchor][reference-name]
 
-Page content goes here.
+Full page content goes here.
 
-[reference-name]: /doc-section-name/:currentVersion:/path/to/page
+[reference-name]: /doc-section-name/:currentVersion:/path/to/page OR any external link
 ```
 
 
