@@ -16,7 +16,7 @@ a certain time interval, then set up tiered storage for rarely accessed data.
 ## Prerequisites
 
 Either:
-- A [Timescale Cloud service][create-a-service] with time-series and ai and vector capabilities enabled.
+- A [$SERVICE_LONG][create-a-service] with time-series and ai and vector capabilities enabled.
 - A [self-hosted PostgreSQL deployment][deploy-self-hosted] with the TimescaleDB, pgvector, pgvectorscale and
   pgai extensions enabled in your database.
 
@@ -169,6 +169,15 @@ This section show you how to run fast analytical queries using time buckets and 
     This continuous aggregate creates the [candlestick chart][charts] data you use to visualize
     the price change of an asset.
 
+1. **Create a policy to refresh the view every hour**
+
+   ```sql
+   SELECT add_continuous_aggregate_policy('stock_candlestick_daily',
+   start_offset => INTERVAL '1 month',
+   end_offset => INTERVAL '1 day',
+   schedule_interval => INTERVAL '1 hour');
+   ```
+
 1.  **Have a quick look at your data**
 
     You query continuous aggregates exactly the same way as your other tables, enable [compression][compression]
@@ -222,7 +231,59 @@ For example, last week's stock market data.
 
 ## Reduce storage charges for rarely accessed data using tiered storage
 
-Sigh
+In the previous sections, you used continuous aggregates to make fast analytical queries and 
+compression to reduce storage on this frequently accessed data. $CLOUD_LONG implements 
+[tiered storage][data-tiering], which consists of the: 
+
+* **High-performance tier**: rapid access to the most recent, and frequently accessed data.
+
+* **Object storage tier**: store data that is rarely accessed and has lower performance requirements.
+
+To reduce storage costs even more, you create tiering policies to move rarely accessed data to the
+object store. The object store is low-cost bottomless data storage built on Amazon S3. However, 
+no matter the tier, you can [query your data when you need][querying-tiered-data]. 
+$CLOUD_LONG seamlessly accesses the correct storage tier and generates the response.
+
+Apologies self-hosted TimescaleDB users, data tiering is available in [Scale and Enterprise][pricing-plans] pricing plans for $CLOUD_LONG only.
+
+To setup data tiering: 
+
+<Procedure>
+
+1. **Enable data tiering**
+
+   1. In [$CONSOLE][portal-ops-mode], select the service to modify.
+
+       You see the `Overview` section.
+
+   1. Scroll down, then click `Enable tiered storage`.
+
+      ![Enable tiered storage](https://assets.timescale.com/docs/images/console-enable-tiered-storage.png)
+
+      When tiered storage is enabled, you see the amount of data in the tiered object storage.
+
+1. **Automate tiering with a policy**
+
+    In $CONSOLE, click `SQL Editor`, then enable data tiering on a hypertable with the following query:
+     ```sql
+     SELECT add_tiering_policy('stock_candlestick_daily', INTERVAL '3 weeks');   
+     ```
+
+1. **Qeury tiered data**
+
+    You enable reads from tiered data for each query, for a session or for all future 
+    sessions. To run a single query on tiered data:
+
+    ```sql
+    set timescaledb.enable_tiered_reads = true; SELECT * FROM stocks_real_time srt LIMIT 10; set timescaledb.enable_tiered_reads = false;
+    ```
+    For more information, see [Querying tiered data][querying-tiered-data].    
+
+</Procedure>
+
+
+## Reduce the risk of downtime and data loss with high availability
+
 
 [create-a-service]: /getting-started/:currentVersion:/services/
 [deploy-self-hosted]: /self-hosted/:currentVersion:/install/
@@ -234,3 +295,8 @@ Sigh
 [compression]: /use-timescale/:currentVersion:/compression/
 [hierarchical-caggs]: /use-timescale/:currentVersion:/continuous-aggregates/hierarchical-continuous-aggregates/
 [charts]: https://www.investopedia.com/terms/c/candlestick.asp
+[hierarchical-storage]: https://en.wikipedia.org/wiki/Hierarchical_storage_management
+[querying-tiered-data]: /use-timescale/:currentVersion:/data-tiering/querying-tiered-data/
+[data-tiering]: /use-timescale/:currentVersion:/data-tiering/
+[pricing-plans]: /about/:currentVersion:/pricing-and-account-management
+[querying-tiered-data]: /use-timescale/:currentVersion:/data-tiering/querying-tiered-data/
