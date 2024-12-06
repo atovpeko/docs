@@ -85,13 +85,12 @@ live in the `_partials` top-level directory. To make a new partial, create a new
 
 In addition to all the [regular Markdown formatting][markdown-syntax], the following elements are available for Timescale docs:
 
-- Procedure blocks
+- Procedure blocks 
 - Highlight blocks
 - Tabs
 - Custom code blocks
 - Multi-tab code blocks
 - Tags
-- Optional label
 
 See [Formatting examples](_formatting_examples.md) for how to use them. 
 

@@ -27,6 +27,8 @@ This page explains how to use the formatting available for Timescale documentati
 ```
 
 ![Procedure example](https://assets.timescale.com/docs/images/procedure-example.png)
+
+The Optional tag is used to mark steps that are not required. 
   
 ## Highlight blocks
 
@@ -38,6 +40,8 @@ Additional relevant information worth highlighting.
 </Highlight>
 ```
 
+![Note highlight](https://assets.timescale.com/docs/images/highlight-note.png)
+
 ```text
 <Highlight type="important">
 
@@ -45,6 +49,8 @@ Important things to keep in mind.
 
 </Highlight>
 ```
+
+![Important highlight](https://assets.timescale.com/docs/images/highlight-important.png)
 
 ```text
 <Highlight type="warning">
@@ -54,6 +60,8 @@ Caution!
 </Highlight>
 ```
 
+![Caution highlight](https://assets.timescale.com/docs/images/highlight-warning.png)
+
 ```text
 <Highlight type="deprecation">
 
@@ -62,6 +70,8 @@ A deprecation notice.
 </Highlight>
 ```
 
+![Deprecated highlight](https://assets.timescale.com/docs/images/highlight-deprecation.png)
+
 ```text
 <Highlight type="cloud">
 
@@ -69,6 +79,8 @@ A note dealing specifically with Timescale Cloud.
 
 </Highlight>
 ```
+
+![Cloud highlight](https://assets.timescale.com/docs/images/highlight-cloud.png)
 
 ## Tabs
 
@@ -90,6 +102,8 @@ Second tab content
 </Tabs>
 ```
 
+![Tabs](https://assets.timescale.com/docs/images/tabs-example.png)
+
 ## Custom code blocks 
 
 Use the `CodeBlock` component with `canCopy` and `showLineNumbers` set to `false` to remove line numbers and the copy button from the native Markdown code blocks.
@@ -101,6 +115,8 @@ code
 code
 `} />
 ```
+
+![Custom code block](https://assets.timescale.com/docs/images/custom-code-block-example.png)
 
 ## Multi-tab code blocks
 
@@ -132,14 +148,14 @@ code
         
     </Terminal>
 
-## Tags
+![Multi-tab code block](https://assets.timescale.com/docs/images/multi-tab-code-block.png)
 
-Use tags to indicate links to downloadable files or metadata about functions. By default, tags have a solid background and gray text. There is also a hollow
-variant.
+## Tags
 
 ```text
 <Tag type="download">Markdown link to download</Tag>
 ```
+
 ```text
 <Tag type="experimental" content="Experimental" /> or <Tag type="experimental-toolkit" content="Experimental"/> 
 ```
@@ -155,6 +171,8 @@ variant.
 ```text
 <Tag variant="hollow">Text to display in a tag</Tag>
 ```
+
+![Tags](https://assets.timescale.com/docs/images/tag-examples.png)
 
 ## Partials
 
