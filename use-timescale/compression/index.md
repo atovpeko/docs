@@ -9,6 +9,8 @@ import UsageBasedStorage from "versionContent/_partials/_usage-based-storage-int
 
 # Compression
 
+IAIN: mark as deprecated and point to hypercore. 
+
 Time-series data can be compressed to reduce the amount of storage required, and
 increase the speed of some queries. This is a cornerstone feature of
 Timescale. When new data is added to your database, it is in the form of

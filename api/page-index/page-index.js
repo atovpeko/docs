@@ -117,61 +117,55 @@ module.exports = [
         ],
       },
       {
-        title: "Distributed hypertables",
-        type: "directory",
-        href: "distributed-hypertables",
+        title: "Hypercore",
+        href: "hypercore",
+        excerpt:
+          "Seamlessly switch between row-oriented and column-oriented storage",
         children: [
           {
-            title: "create_distributed_hypertable",
-            href: "create_distributed_hypertable",
+            title: "add_columnstore_policy",
+            href: "add_columnstore_policy",
+            excerpt: "Compresses a chunk automatically in the background after it reaches a given age",
           },
           {
-            title: "add_data_node",
-            href: "add_data_node",
+            title: "chunk_columnstore_settings",
+            href: "chunk_columnstore_settings",
+            excerpt: "Show the compression settings for each chunk that has compression enabled",
           },
           {
-            title: "attach_data_node",
-            href: "attach_data_node",
+            title: "chunk_columnstore_stats",
+            href: "chunk_columnstore_stats",
+            excerpt: "Get chunk-specific statistics related to hypertable compression",
           },
           {
-            title: "alter_data_node",
-            href: "alter_data_node",
+            title: "columnstore_settings",
+            href: "columnstore_settings",
+            excerpt: "Get information about compression-related settings for hypertables",
           },
           {
-            title: "detach_data_node",
-            href: "detach_data_node",
+            title: "convert_to_columnstore",
+            href: "convert_to_columnstore",
+            excerpt: "Compress or recompress a specific chunk in the rowstore and add it to the columnstore",
           },
           {
-            title: "delete_data_node",
-            href: "delete_data_node",
+            title: "convert_to_rowstore",
+            href: "convert_to_rowstore",
+            excerpt: "Decompress a chunk from the columnstore and add it to the rowstore",
           },
           {
-            title: "distributed_exec",
-            href: "distributed_exec",
+            title: "hypertable_columnstore_settings",
+            href: "hypertable_columnstore_settings",
+            excerpt: "Returns information about the compression settings for each hypertable in the columnstore.",
           },
           {
-            title: "set_number_partitions",
-            href: "set_number_partitions",
+            title: "hypertable_columnstore_stats",
+            href: "hypertable_columnstore_stats",
+            excerpt: "Get statistics related to hypertable compression",
           },
           {
-            title: "set_replication_factor",
-            href: "set_replication_factor",
-          },
-          {
-            title: "copy_chunk",
-            href: "copy_chunk_experimental",
-          },
-          {
-            title: "move_chunk",
-            href: "move_chunk_experimental",
-          },
-          {
-            title: "cleanup_copy_chunk_operation",
-            href: "cleanup_copy_chunk_operation_experimental",
-          },
-          {
-            title: "create_distributed_restore_point",
-            href: "create_distributed_restore_point",
+            title: "remove_columnstore_policy",
+            href: "remove_columnstore_policy",
+            excerpt: "Remove the compression policy",
           },
         ],
       },
@@ -606,6 +600,65 @@ module.exports = [
         href: "api-tag-overview",
         description:
           "An overview of what different tags represent in the API section of Timescale Documentation.",
+      },
+      {
+        title: "Distributed hypertables (Deprecated)",
+        type: "directory",
+        href: "distributed-hypertables",
+        children: [
+          {
+            title: "create_distributed_hypertable",
+            href: "create_distributed_hypertable",
+          },
+          {
+            title: "add_data_node",
+            href: "add_data_node",
+          },
+          {
+            title: "attach_data_node",
+            href: "attach_data_node",
+          },
+          {
+            title: "alter_data_node",
+            href: "alter_data_node",
+          },
+          {
+            title: "detach_data_node",
+            href: "detach_data_node",
+          },
+          {
+            title: "delete_data_node",
+            href: "delete_data_node",
+          },
+          {
+            title: "distributed_exec",
+            href: "distributed_exec",
+          },
+          {
+            title: "set_number_partitions",
+            href: "set_number_partitions",
+          },
+          {
+            title: "set_replication_factor",
+            href: "set_replication_factor",
+          },
+          {
+            title: "copy_chunk",
+            href: "copy_chunk_experimental",
+          },
+          {
+            title: "move_chunk",
+            href: "move_chunk_experimental",
+          },
+          {
+            title: "cleanup_copy_chunk_operation",
+            href: "cleanup_copy_chunk_operation_experimental",
+          },
+          {
+            title: "create_distributed_restore_point",
+            href: "create_distributed_restore_point",
+          },
+        ],
       },
     ],
   },
