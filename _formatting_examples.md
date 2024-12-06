@@ -32,55 +32,65 @@ The `Optional` tag is used to mark steps that are not required.
   
 ## Highlight blocks
 
-```text
-<Highlight type="note">
+- Note
 
-Additional relevant information worth highlighting.
+    ```text
+    <Highlight type="note">
+    
+    Additional relevant information worth highlighting.
+    
+    </Highlight>
+    ```
+    
+    ![Note highlight](https://assets.timescale.com/docs/images/highlight-note.png)
 
-</Highlight>
-```
+- Important
 
-![Note highlight](https://assets.timescale.com/docs/images/highlight-note.png)
+    ```text
+    <Highlight type="important">
+    
+    Important things to keep in mind.
+    
+    </Highlight>
+    ```
+    
+    ![Important highlight](https://assets.timescale.com/docs/images/highlight-important.png)
 
-```text
-<Highlight type="important">
+- Warning
 
-Important things to keep in mind.
+    ```text
+    <Highlight type="warning">
+    
+    Caution!
+    
+    </Highlight>
+    ```
+    
+    ![Caution highlight](https://assets.timescale.com/docs/images/highlight-warning.png)
 
-</Highlight>
-```
+- Deprecation
 
-![Important highlight](https://assets.timescale.com/docs/images/highlight-important.png)
+    ```text
+    <Highlight type="deprecation">
+    
+    A deprecation notice.
+    
+    </Highlight>
+    ```
+    
+    ![Deprecated highlight](https://assets.timescale.com/docs/images/highlight-deprecation.png)
 
-```text
-<Highlight type="warning">
+- Cloud
 
-Caution!
-
-</Highlight>
-```
-
-![Caution highlight](https://assets.timescale.com/docs/images/highlight-warning.png)
-
-```text
-<Highlight type="deprecation">
-
-A deprecation notice.
-
-</Highlight>
-```
-
-![Deprecated highlight](https://assets.timescale.com/docs/images/highlight-deprecation.png)
-
-```text
-<Highlight type="cloud">
-
-A note dealing specifically with Timescale Cloud.
-
-</Highlight>
-```
-
-![Cloud highlight](https://assets.timescale.com/docs/images/highlight-cloud.png)
+    ```text
+    <Highlight type="cloud">
+    
+    A note dealing specifically with Timescale Cloud.
+    
+    </Highlight>
+    ```
+    
+    ![Cloud highlight](https://assets.timescale.com/docs/images/highlight-cloud.png)
 
 ## Tabs
 
