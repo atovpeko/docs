@@ -106,6 +106,7 @@ Timescale documentation uses variables for its product names, features, and UI e
 
 The main variables include the following:
 
+```text
 COMPANY = Timescale
 COMPANY_URL = https://www.timescale.com
 CLOUD_LONG = Timescale Cloud
@@ -114,6 +115,7 @@ CONSOLE = Timescale Console
 CONSOLE_URL = https://console.cloud.timescale.com/
 SERVICE_LONG = Timescale Cloud service
 SERVICE_SHORT = service
+```
 
 The list of variables is an ever-evolving document. Rely on the help of our doc team to apply all relevant ones when reviewing your contribution. 
 
