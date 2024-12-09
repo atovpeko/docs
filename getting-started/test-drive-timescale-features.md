@@ -7,6 +7,17 @@ content_group: Getting started
 
 # Test drive Timescale features
 
+$CLOUD_LONG scales PostgreSQL to ingest and query vast amounts of live data. $CLOUD_LONG 
+provides a range of features and optimizations that supercharge your queries while keeping the 
+costs down. For example: 
+* The row-columnar engine makes queries up to 350x faster, ingests 44% faster, and reduces storage by 95%. 
+* Tiered storage seamlessly moves your data from high performance storage for frequently access data to low cost bottomless storage for rarely accessed data. 
+
+You can use the same data optimization methods for data in high performance and low cost storage. 
+
+This page gives shows you how to rapidly implement the features in $CLOUD_LONG so 
+you ingest and query data faster while keeping prices low. 
+
 This page shows you how to import time-series data into a hypertable, improve query 
 speed on frequently accessed data in high performance storage by aggregating it 
 into time buckets and setting up continuous aggregates based on the time buckets. 
@@ -281,8 +292,8 @@ To setup data tiering:
 
 </Procedure>
 
-
 ## Reduce the risk of downtime and data loss with high availability
+
 
 
 [create-a-service]: /getting-started/:currentVersion:/services/
