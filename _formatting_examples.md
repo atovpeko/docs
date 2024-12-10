@@ -15,13 +15,19 @@ This page explains how to use the formatting available for Timescale documentati
     step 1 code
     ```
 
-1.  **Step 2 summary in bold** <Optional />
+1.  **Step 2 summary in bold** 
 
     Step 2 explanation and details.
+    
+    1. Sub-step 1.
 
-    ```
-    step 2 code
-    ```
+       ```
+       Sub-step 1 code
+       ```
+    
+    1. Sub-step 2. 
+    
+    1. <Optional /> Sub-step 3. 
 
 </Procedure>
 ```
@@ -31,6 +37,8 @@ This page explains how to use the formatting available for Timescale documentati
 The `Optional` tag is used to mark steps that are not required. 
   
 ## Highlight blocks
+
+Use sparingly and only if it's essential to attract the reader's attention. 
 
 - Note
 
@@ -114,9 +122,21 @@ Second tab content
 
 ![Tabs](https://assets.timescale.com/docs/images/tabs-example.png)
 
-## Custom code blocks 
+## Code blocks 
 
-Use the `CodeBlock` component with `canCopy` and `showLineNumbers` set to `false` to remove line numbers and the copy button from the native Markdown code blocks.
+As a default, use [fenced Markdown code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks):
+
+```sql
+CREATE TABLE conditions (
+   time        TIMESTAMPTZ       NOT NULL,
+   location    TEXT              NOT NULL,
+   device      TEXT              NOT NULL,
+   temperature DOUBLE PRECISION  NULL,
+   humidity    DOUBLE PRECISION  NULL
+);
+```
+
+To remove line numbers and the copy button, use the `CodeBlock` component with `canCopy` and `showLineNumbers` set to `false`:
 
 ```text
 <CodeBlock canCopy={false} showLineNumbers={false} children={`
