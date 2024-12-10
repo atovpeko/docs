@@ -1,47 +1,45 @@
 ---
-title: Test drive Timescale features
-excerpt: Improve database performance with Hypertables, time bucketing, compression and continuous aggregates.
+title: Try the main features in Timescale products
+excerpt: Improve database performance with hypertables, time bucketing, compression and continuous aggregates.
 products: [cloud]
 content_group: Getting started
 ---
 
 import HASetup from 'versionContent/_partials/_high-availability-setup.mdx';
 
-# Test drive Timescale features
+# Try the main features in Timescale products
 
 $CLOUD_LONG scales PostgreSQL to ingest and query vast amounts of live data. $CLOUD_LONG 
 provides a range of features and optimizations that supercharge your queries while keeping the 
 costs down. For example: 
-* The row-columnar engine makes queries up to 350x faster, ingests 44% faster, and reduces storage by 95%. 
+* The row-columnar engine makes queries up to 350x faster, ingests 44% faster, and reduces storage by 95%.
 * Tiered storage seamlessly moves your data from high performance storage for frequently access data to low cost bottomless storage for rarely accessed data. 
 
-You can use the same data optimization methods for data in high performance and low cost storage. 
+You use the same optimization methods for data in all storage tiers:
 
-This page gives shows you how to rapidly implement the features in $CLOUD_LONG so 
-you ingest and query data faster while keeping prices low. 
+![Main features and tiered data](https://assets.timescale.com/docs/images/timescale-cloud-main-features.svg )
 
-This page shows you how to import time-series data into a hypertable, improve query 
-speed on frequently accessed data in high performance storage by aggregating it 
-into time buckets and setting up continuous aggregates based on the time buckets. 
-Finally, you reduce storage charges by compressing frequently accessed data older than 
-a certain time interval, then set up tiered storage for rarely accessed data.  
+This page gives shows you how to rapidly implement the features in $CLOUD_LONG that enable you to 
+ingest and query data faster while keeping prices low. 
 
 ## Prerequisites
 
-Either:
+To run the examples in this page, you need either:
 - A [$SERVICE_LONG][create-a-service] with time-series and ai and vector capabilities enabled.
 - A [self-hosted PostgreSQL deployment][deploy-self-hosted] with the TimescaleDB, pgvector, pgvectorscale and
   pgai extensions enabled in your database.
-
 
 ## Optimize time-series data in hypertables
 
 Hypertables are PostgreSQL tables that help you improve insert and query
 performance by automatically partition your data by time. Each hypertable is made
 up of child tables called chunks. Each chunk is assigned a range of time, and only
-contains data from that range. Hypertables exist alongside regular PostgreSQL tables.
+contains data from that range. You can also tune hypertables to increase performance
+even more. 
+
+Hypertables exist alongside regular PostgreSQL tables.
 You use regular PostgreSQL tables for relational data, and interact with hypertables
-and regular PostgreSQL tables in the same way.
+and regular PostgreSQL tables in the same way. 
 
 This section shows you how to create regular tables and hypertables, and import
 relational and time-series data from external files.
@@ -52,9 +50,13 @@ relational and time-series data from external files.
 
     1. Unzip <Tag type="download">[real_time_stock_data.zip](https://assets.timescale.com/docs/downloads/get-started/real_time_stock_data.zip)</Tag> to a `<local folder>`.
 
-       The dataset contains second-by-second stock-trade data for the top 100 most-traded symbols
-       and a regular table of company symbols and company names. The stock-trade data is already 
-       organized for you in a hypertable.
+       This test dataset contains second-by-second stock-trade data for the top 100 most-traded symbols
+       and a regular table of company symbols and company names.  
+
+       To import up to 100GB of data directly from your current PostgreSQL based database, 
+       [migrate with downtime][migrate-with-downtime] using native PostgreSQL tooling. To seamlessly import 100GB-10TB+ 
+       of data, use the [live migration][migrate-live] tooling supplied by $COMPANY. To add data from non-PostgreSQL
+       data sources, see [Import and ingest data][data-ingest].
 
     1. Upload data from the CSV files to your $SERVICE_SHORT:
     
@@ -74,6 +76,9 @@ relational and time-series data from external files.
              ```sql   
              SELECT create_hypertable('stocks_real_time', by_range('time'), migrate_data => TRUE);
              ```
+
+             To more fully understand how hypertables work, and how to optimize them for performance by
+             tuning chunk intervals and enabling chunk skipping, see [the hypertables documentation][hypertables-section].
 
        </Tab>
         
@@ -102,7 +107,9 @@ relational and time-series data from external files.
                 ```sql
                 SELECT create_hypertable('stocks_real_time', by_range('time'));
                 ```
-      
+                To more fully understand how hypertables work, and how to optimize them for performance by
+                tuning chunk intervals and enabling chunk skipping, see [the hypertables documentation][hypertables-section].
+
           - For the relational data:
       
              In your sql client, create a normal PostgreSQL table:
@@ -112,7 +119,7 @@ relational and time-series data from external files.
               name TEXT NOT NULL
              );
             ```
-               
+
        3. Upload the dataset to your $SERVICE_SHORT
           ```sql
           \COPY stocks_real_time from './tutorial_sample_tick.csv' DELIMITER ',' CSV HEADER;
@@ -135,18 +142,18 @@ relational and time-series data from external files.
 
 </Procedure>
 
-You have imported time-series data into a hypertable. In the next section you see how   
-
-To fully understand how hypertables work, see [About hypertables][about-hypertables].
-
 ## Write fast analytical queries on frequently access data using time buckets and continuous aggregates
 
 Aggregation is a way of combing data to get insights from it. Average, sum, and count are all 
 example of simple aggregates. However, with large amounts of data aggregation slows things down, quickly.
- 
 Continuous aggregates are a kind of hypertable that is refreshed automatically in 
 the background as new data is added, or old data is modified. Changes to your dataset are tracked, 
 and the hypertable behind the continuous aggregate is automatically updated in the background.
+
+You create continuous aggregates on uncompressed data in high-performance storage. They continue to work 
+on [compressed frequently accessed data][test-drive-enable-compression]
+and [rarely accessed data in tiered storage][test-drive-tiered-storage]. You can even
+create [continuous aggregates on top of your continuous aggregates][hierarchical-caggs].
 
 You use time buckets to create a continuous aggregate. Time buckets aggregate data in hypertables by time 
 interval. For example, a 5-minute, 1-hour, or 3-day bucket. The data grouped in a time bucket use a single 
@@ -159,7 +166,7 @@ This section show you how to run fast analytical queries using time buckets and 
 
 1.  **Create a continuous aggregate**
 
-    In a continuous aggregate, data grouped using a time bucket is stored in a
+    For a continuous aggregate, data grouped using a time bucket is stored in a
     PostgreSQL `MATERIALIZED VIEW` in a hypertable. `timescaledb.continuous` ensures that this data
     is always up to date.
     In your SQL editor, use the following code to create a continuous aggregate on the real time data in
@@ -193,11 +200,8 @@ This section show you how to run fast analytical queries using time buckets and 
 
 1.  **Have a quick look at your data**
 
-    You query continuous aggregates exactly the same way as your other tables, enable [compression][compression]
-    or [tiered storage][data-tiering]. You can even
-    create [continuous aggregates on top of your continuous aggregates][hierarchical-caggs].
-
-    To query the `stock_candlestick_daily` continuous aggregate for all stocks:
+    You query continuous aggregates exactly the same way as your other tables. To query the `stock_candlestick_daily` 
+    continuous aggregate for all stocks:
 
     <TryItOutCodeBlock queryId="getting-started-cagg" />
 
@@ -208,22 +212,23 @@ To see the change in terms of query time and data returned between a regular que
 a continuous aggregate, run the query part of the continuous aggregate
 ( `SELECT ...GROUP BY day, symbol;` ) and compare the results.
 
-## Reduce storage charges on older data using compression
+## Reduce storage charges using compression
 
 Compressing your time-series data allows you to reduce your chunk size by more than 90%. This saves on 
 storage costs, while your queries continue to operate at lightning speed. 
 
 New data is added to your database in the form of uncompressed rows. When you enable 
 compression, TimescaleDB uses a built-in job scheduler to compress the data in a hypertable
-chunk-by-chunk. In a compressed chunk, multiple records are grouped into a single row. Best practice is to
-compress data that is no longer needed for highest performance queries, but is still access regularly.
-For example, last week's stock market data.
+chunk-by-chunk when it reaches a certain maturity. In a compressed chunk, multiple records are grouped into 
+a single row. Best practice is to compress data that is no longer needed for highest performance queries, but 
+is still access regularly. For example, last week's stock market data.
 
 <Procedure>
 
 1.  **Enable compression**
 
-    In your SQL editor, use the following code to compress the data in a continuous aggregate:
+    In your SQL editor, use the following code to compress the data in a hypertable. In this example, the 
+    hypertable is also a continuous aggregate:
 
     ```sql
     ALTER TABLE stock_candlestick_daily SET (
@@ -232,7 +237,7 @@ For example, last week's stock market data.
     );
     ```
 
-1.  **Add a compression policy**
+1.  **Set the time interval when data is compressed**
 
     ```sql
     SELECT add_compression_policy('stock_candlestick_daily', INTERVAL '7 days');
@@ -244,20 +249,15 @@ For example, last week's stock market data.
 
 ## Reduce storage charges for rarely accessed data using tiered storage
 
-In the previous sections, you used continuous aggregates to make fast analytical queries and 
-compression to reduce storage on this frequently accessed data. $CLOUD_LONG implements 
-[tiered storage][data-tiering], which consists of the: 
+In the previous sections, you used continuous aggregates to make fast analytical queries, and 
+compression to reduce storage costs on frequently accessed data. To reduce storage costs even more, 
+you create tiering policies to move rarely accessed data to the object store. The object store is 
+low-cost bottomless data storage built on Amazon S3. However, no matter the tier, you can 
+[query your data when you need][querying-tiered-data]. $CLOUD_LONG seamlessly accesses the correct storage 
+tier and generates the response.
 
-* **High-performance tier**: rapid access to the most recent, and frequently accessed data.
-
-* **Object storage tier**: store data that is rarely accessed and has lower performance requirements.
-
-To reduce storage costs even more, you create tiering policies to move rarely accessed data to the
-object store. The object store is low-cost bottomless data storage built on Amazon S3. However, 
-no matter the tier, you can [query your data when you need][querying-tiered-data]. 
-$CLOUD_LONG seamlessly accesses the correct storage tier and generates the response.
-
-Apologies self-hosted TimescaleDB users, data tiering is available in [Scale and Enterprise][pricing-plans] pricing plans for $CLOUD_LONG only.
+Data tiering is available in the [scale and enterprise][pricing-plans] pricing plans for $CLOUD_LONG. Sign up for 
+a [30 day free trial][sign-up] and try for free.
 
 To setup data tiering: 
 
@@ -275,7 +275,7 @@ To setup data tiering:
 
       When tiered storage is enabled, you see the amount of data in the tiered object storage.
 
-1. **Automate tiering with a policy**
+1. **Set the time interval when data is tiered**
 
     In $CONSOLE, click `SQL Editor`, then enable data tiering on a hypertable with the following query:
      ```sql
@@ -296,25 +296,42 @@ To setup data tiering:
 
 ## Reduce the risk of downtime and data loss with high availability
 
-By default, all $SERVICE_LONGs have rapid recovery enabled. However, if your
-$SERVICE_LONG has ery low tolerance for downtime, $CLOUD_LONG offers
-High Availability (HA) replicas. HA replicas are exact, up-to-date copies of your database 
-hosted in multiple AWS availability zones (AZ) within the same region as your primary node. 
-They automatically take over operations if the original primary data node becomes unavailable. 
+By default, all $SERVICE_LONGs have rapid recovery enabled. However, if your app has very low tolerance 
+for downtime, $CLOUD_LONG offers High Availability (HA) replicas. HA replicas are exact, up-to-date copies 
+of your database hosted in multiple AWS availability zones (AZ) within the same region as your primary node.
+HA replicas automatically take over operations if the original primary data node becomes unavailable. 
 The primary node streams its write-ahead log (WAL) to the replicas to minimize the chances of 
 data loss during failover.
+
+High availability is available in the [scale and enterprise][pricing-plans] pricing plans for $CLOUD_LONG. Sign up for
+a [30 day free trial][sign-up] and try for free.
 
 <HASetup />
 
 For more information, see [High availability][high-availability].
 
 
+What next? See the [use case tutorials][tutorials], interact with the data in your $SERVICE_LONG using
+[your favorite programming language][connect-with-code], integrate your $SERVICE_LONG with a range of
+[third-party tools][integrations], plain old [Use Timescale][use-timescale], or dive into [the API][use-the-api].
+
+[tutorials]: /tutorials/:currentVersion:/
+[connect-with-code]: /quick-start/:currentVersion:/
+[integrations]: /use-timescale/:currentVersion:/integrations/
+[use-the-api]: /api/:currentVersion:/
+[use-timescale]: /use-timescale/:currentVersion:/
+
 [create-a-service]: /getting-started/:currentVersion:/services/
 [deploy-self-hosted]: /self-hosted/:currentVersion:/install/
 [connect-to-your-service]: /getting-started/:currentVersion:/run-queries-from-console/
 [portal-ops-mode]: https://console.cloud.timescale.com/dashboard/services
 [portal-data-mode]: https://console.cloud.timescale.com/dashboard/services?popsql
-[about-hypertables]: /use-timescale/:currentVersion:/hypertables/about-hypertables/
+[migrate-with-downtime]: /migrate/:currentVersion:/pg-dump-and-restore/
+[migrate-live]: /migrate/:currentVersion:/live-migration/
+[data-ingest]: /use-timescale/:currentVersion:/ingest-data/
+[hypertables-section]: /use-timescale/:currentVersion:/hypertables/
+[test-drive-enable-compression]: /getting-started/:currentVersion:/test-drive-timescale-features/#reduce-storage-charges-on-older-data-using-compression
+[test-drive-tiered-storage]: /getting-started/:currentVersion:/test-drive-timescale-features/#reduce-storage-charges-on-older-data-using-compression
 [data-tiering]: /use-timescale/:currentVersion:/data-tiering/
 [compression]: /use-timescale/:currentVersion:/compression/
 [hierarchical-caggs]: /use-timescale/:currentVersion:/continuous-aggregates/hierarchical-continuous-aggregates/
@@ -325,3 +342,4 @@ For more information, see [High availability][high-availability].
 [pricing-plans]: /about/:currentVersion:/pricing-and-account-management
 [querying-tiered-data]: /use-timescale/:currentVersion:/data-tiering/querying-tiered-data/
 [high-availability]: /use-timescale/:currentVersion:/ha-replicas/high-availability/
+[sign-up]: https://console.cloud.timescale.com/signup
