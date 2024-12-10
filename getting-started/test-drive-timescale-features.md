@@ -5,6 +5,8 @@ products: [cloud]
 content_group: Getting started
 ---
 
+import HASetup from 'versionContent/_partials/_high-availability-setup.mdx';
+
 # Test drive Timescale features
 
 $CLOUD_LONG scales PostgreSQL to ingest and query vast amounts of live data. $CLOUD_LONG 
@@ -32,7 +34,7 @@ Either:
   pgai extensions enabled in your database.
 
 
-## Organize time-series data in hypertables
+## Optimize time-series data in hypertables
 
 Hypertables are PostgreSQL tables that help you improve insert and query
 performance by automatically partition your data by time. Each hypertable is made
@@ -294,6 +296,17 @@ To setup data tiering:
 
 ## Reduce the risk of downtime and data loss with high availability
 
+By default, all $SERVICE_LONGs have rapid recovery enabled. However, if your
+$SERVICE_LONG has ery low tolerance for downtime, $CLOUD_LONG offers
+High Availability (HA) replicas. HA replicas are exact, up-to-date copies of your database 
+hosted in multiple AWS availability zones (AZ) within the same region as your primary node. 
+They automatically take over operations if the original primary data node becomes unavailable. 
+The primary node streams its write-ahead log (WAL) to the replicas to minimize the chances of 
+data loss during failover.
+
+<HASetup />
+
+For more information, see [High availability][high-availability].
 
 
 [create-a-service]: /getting-started/:currentVersion:/services/
@@ -311,3 +324,4 @@ To setup data tiering:
 [data-tiering]: /use-timescale/:currentVersion:/data-tiering/
 [pricing-plans]: /about/:currentVersion:/pricing-and-account-management
 [querying-tiered-data]: /use-timescale/:currentVersion:/data-tiering/querying-tiered-data/
+[high-availability]: /use-timescale/:currentVersion:/ha-replicas/high-availability/
