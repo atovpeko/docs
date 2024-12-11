@@ -8,72 +8,41 @@ tags: [replicas, scaling, ha]
 
 # Manage read replication
 
-You use read replicas to power your read-intensive apps and business intelligence tooling. Using read replicas to serve 
-reads for your app removes load from the primary data instance, and enables your service to improve ingest performance. 
-This is particularly useful when read traffic is very spiky and risks impacting ingest performance, or where reads have 
-a lower priority to writes. 
+You use read replicas to power your read-intensive apps and business intelligence tooling. Using read replicas to serve
+reads for your app removes load from the primary data instance, and enables your service to improve ingest performance.
+This is particularly useful when read traffic is very spiky and risks impacting ingest performance, or where reads have
+a lower priority to writes.
 
 This page shows you how to create and manage read replicas.
 
-## What is read replication?
+import TC from "versionContent/_partials/ha-replication/_rr-tsc.mdx";
+import MST from "versionContent/_partials/ha-replication/_rr-mst.mdx";
+import SELF from "versionContent/_partials/ha-replication/_rr-self.mdx";
+import Prereqs from "versionContent/_partials/_prerequisites.mdx";
 
-A read replica is a read-only copy of the primary data instance in your Timescale Cloud service. Queries on read 
-replicas have minimal impact on the performance of the primary data instance. This enables you to interact with 
-up-to-date production data for analysis or to scale out reads beyond the limits of your primary data instance. You use 
-read replicas for read scaling. To limit data loss for your Timescale Cloud services, use [High availability][ha].
+## Prerequisites
 
-You can create as many read replicas as you need. Each read replica appears as its own service. You use a unique
-connection string to interact with each read replica. This provides both security and resource isolation. To restrict 
-access without isolation, you can create a [read-only role][read-only-role] for each Timescale Cloud service. Users 
-with read-only permissions cannot access the primary data instance directly.
+<Prereqs />
 
-## Create a read replica
+<Tabs label="Platform dependent implementations">
 
-Read replicas can be short-lived and deleted when the analysis is complete, or long-running to power a
-business intelligence (BI) tool. To create a secure read replica for your read-intensive apps: 
+<Tab title="Timescale Cloud">
 
-<Procedure>
+<TC />
 
-1. Best practice is to create a [read-only role][read-only-role] for the person using the replica.
+</Tab>
 
-   You create the read-only user on the primary data instance. This user is propagated to the read
-   replica when you create it.
-1. In [Timescale Console][timescale-console-services], select the service to replicate.
-1. Click `Operations`, then click `Read replicas`.
-1. Click `Add read replica`, then select the configuration you want and click `Add read replica`.
-1. Note the connection information for the read replica. 
+<Tab title="MST">
 
-    The connection string for each read replica is unique, and different to one you use for the primary data instance. 
+<MST />
 
-</Procedure>
+</Tab>
 
-## Manage data lag for your read replicas
+<Tab title="Self-hosted">
 
-Read replicas use asynchronous replication. This can cause slight lag in data to the primary data instance. Replica lag
-is measured in bytes against the current state of the primary database. To see the lag for both read and
-high-availability replicas replicas running on Timescale Cloud:
+<SELF />
 
-To check the status and lag for your read replicas:
+</Tab>
 
-<Procedure>
+</Tabs>
 
-1. In [Timescale Console][timescale-console-services], select a service.
-   
-   The status of the read-replica and data lag is displayed:
-
-    ![Read replica status and lag](https://assets.timescale.com/docs/images/read-replica-lag-status.png)
-
-    You can also see this information in the `Operations` tab.
-
-1. To reduce the allowable lag, adjust the `max_standby_streaming_delay`, and `max_standby_archive_delay` parameters.
-
-   This is not best practice where changes must be immediately represented, such as for user credentials.
-
-</Procedure> 
-
-
-
-[cloud-login]: https://console.cloud.timescale.com
-[ha]: /use-timescale/:currentVersion:/ha-replicas/high-availability/
-[read-only-role]: /use-timescale/:currentVersion:/security/read-only-role/#create-a-read-only-user
-[timescale-console-services]: https://console.cloud.timescale.com/dashboard/services

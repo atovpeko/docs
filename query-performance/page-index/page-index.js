@@ -7,6 +7,62 @@ module.exports = [
       "Install and manage your deployment, control user access, and integrate third party tooling",
     children: [
       {
+        title: "Compress frequently accessed data",
+        href: "compression",
+        children: [
+          {
+            title: "About compression",
+            href: "about-compression",
+            excerpt: "Learn about how compression works",
+          },
+          {
+            title: "About compression methods",
+            href: "compression-methods",
+            excerpt: "Learn about the different compression methods",
+          },
+          {
+            title: "Backfill historical data",
+            href: "backfill-historical-data",
+            excerpt: "Backfill historical data to compressed chunks",
+          },
+          {
+            title: "Compression design",
+            href: "compression-design",
+            excerpt: "The design of TimescaleDB compression",
+          },
+          {
+            title: "Decompress chunks",
+            href: "decompress-chunks",
+            excerpt: "Decompress data chunks",
+          },
+          {
+            title: "Enable a compression policy",
+            href: "compression-policy",
+            excerpt: "Create a compression policy on a hypertable",
+          },
+          {
+            title: "Manual compression",
+            href: "manual-compression",
+            excerpt: "Compress data chunks",
+          },
+          {
+            title: "Modify compressed data",
+            href: "modify-compressed-data",
+            excerpt: "Insert and modify data in compressed chunks",
+          },
+          {
+            title: "Modify a schema",
+            href: "modify-a-schema",
+            excerpt: "Change the data schema in compressed chunks",
+          },
+          {
+            title: "Troubleshooting",
+            href: "troubleshooting",
+            type: "placeholder",
+          },
+        ],
+      },
+      {
         title: "Connection pooling",
         href: "connection-pooling",
         excerpt:

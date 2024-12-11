@@ -27,9 +27,7 @@ const APIReference = require("../api-reference/page-index/page-index");
 module.exports = [
   ...gsgPageIndex,
   ...timescaleAboutPageIndex,
-  ...selfHostedPageIndex,
   ...DeployUpgrade,
-  ...timescaleMSTPageIndex,
   ...Databasics,
   ...tutorialsPageIndex,
   ...navigationPageIndex,

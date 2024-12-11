@@ -1,5 +1,5 @@
 ---
-title: Ingest and migrate
+title: Migrate and ingest data
 excerpt: Migrate existing database to Timescale Cloud
 products: [cloud]
 keywords: [data migration, postgresql, RDS]
@@ -8,7 +8,11 @@ tags: [ingest, migrate, RDS]
 
 import OpenSupportRequest from "versionContent/_partials/_migrate_open_support_request.mdx"
 
-# Migrate your data to Timescale Cloud
+# Migrate and ingest data
+
+Ipsum lorem. 
+
+## Migrate data
 
 You have chosen to migrate your data to Timescale Cloud, thank you. Depending on the amount of data 
 you need to migrate, and the amount of downtime you can afford, we offer the following ways to migrate 
@@ -31,6 +35,23 @@ If you're migrating your data from another source database type, best practice i
 a `.csv` file, then import to your Timescale Cloud Service using [timescaledb-parallel-copy][parallel-copy]. For other ingestion methods, 
 see [Ingest data from other sources][data-ingest].
 
+
+## Ingest data using third-party tools
+
+By default, Timescale supports standard SQL inserts. Additionally, you can use
+third-party tools to build data ingest pipelines.
+
+This section covers some popular frameworks and systems used in conjunction with
+Timescale:
+
+*   Ingest data using [Prometheus][ingest-prometheus]
+*   Ingest data using [Kafka][ingest-kafka]
+*   Ingest data using [Telegraf][ingest-telegraf]
+*   Ingest data using [Timescale parallel copy][ingest-parallel]
+*   Ingest data [from a `.csv` file][ingest-csv]
+
+For more information about how to use standard SQL insert queries to write data
+into Timescale, see the [Writing Data][writing-data] section.
 
 
 [data-ingest]: /use-timescale/:currentVersion:/ingest-data/

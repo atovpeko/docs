@@ -1,6 +1,6 @@
 module.exports = [
   {
-    title: "Ingest and migrate",
+    title: "Migrate and ingest data",
     href: "ingest-and-migrate",
     excerpt: "Migrating your data to Timescale",
     children: [
@@ -48,37 +48,26 @@ module.exports = [
         ],
       },
       {
-        title: "Ingest data using third-party tools",
-        href: "ingest-data",
-        children: [
-          {
-            title: "About ingesting data from other sources",
-            href: "about-ingesting",
-            excerpt: "Ingest data into Timescale from third-party sources",
-          },
-          {
-            title: "Ingesting data with Prometheus",
-            href: "ingest-prometheus",
-            excerpt: "Ingest data into Timescale from Prometheus",
-          },
-          {
-            title: "Ingesting data with Kafka",
-            href: "ingest-kafka",
-            excerpt: "Ingest data into Timescale from Kafka",
-          },
-          {
-            title: "Ingesting data with Timescale parallel copy",
-            href: "about-timescaledb-parallel-copy",
-            excerpt:
-              "Quickly insert bulk data by parallelizing `COPY` operations",
-          },
-          {
-            title: "Ingesting data from a .csv file",
-            href: "import-csv",
-            excerpt:
-              "Import data into your Timescale instance from an external .csv file",
-          },
-        ],
+        title: "Ingest data with Prometheus",
+        href: "ingest-prometheus",
+        excerpt: "Ingest data into Timescale from Prometheus",
+      },
+      {
+        title: "Ingest data with Kafka",
+        href: "ingest-kafka",
+        excerpt: "Ingest data into Timescale from Kafka",
+      },
+      {
+        title: "Ingest data with Timescale parallel copy",
+        href: "about-timescaledb-parallel-copy",
+        excerpt:
+          "Quickly insert bulk data by parallelizing `COPY` operations",
+      },
+      {
+        title: "Ingest data from a .csv file",
+        href: "import-csv",
+        excerpt:
+          "Import data into your Timescale instance from an external .csv file",
       },
       {
         title: "FAQ and troubleshooting",

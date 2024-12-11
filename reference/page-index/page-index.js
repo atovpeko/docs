@@ -16,6 +16,11 @@ module.exports = [
         href: "extensions",
         excerpt: "Exhaustive list of the features offered by Timescale products and services",
       },
+      {
+        title: "Timescale limitations",
+        href: "limitations",
+        excerpt: "Current limitations of Timescale features",
+      },
     ],
   },
 ];

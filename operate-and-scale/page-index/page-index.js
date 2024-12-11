@@ -11,9 +11,14 @@ module.exports = [
         href: "backup-restore",
         children: [
           {
-            title: "Backup and restore",
+            title: "Automatic backups",
             href: "backup-restore-cloud",
             excerpt: "Timescale backup and restore",
+          },
+          {
+            title: "Manual logical backup",
+            href: "logical-backup",
+            excerpt: "Back up and restore a hypertable or an entire database using native PostgreSQL commands",
           },
           {
             title: "Point-in-time recovery",
@@ -21,71 +26,6 @@ module.exports = [
             excerpt: "PITR on Timescale services"
           }
         ]
-      },
-      {
-        title: "Ensure data availability and accessibility",
-        href: "data-replication",
-        excerpt: "Key concepts for working with pgvector data in PostgreSQL",
-      },
-      {
-        title: "High availability and read replication",
-        href: "ha-replicas",
-        excerpt: "Timescale high availability and read replication",
-        children: [
-          {
-            title: "Manage high availability",
-            href: "high-availability",
-            excerpt: "Set up HA replicas on Timescale for high availability",
-          },
-          {
-            title: "Manage read replication",
-            href: "read-scaling",
-            excerpt: "Understand how read scaling works in Timescale",
-          },
-        ],
-      },
-      {
-        title: "Security",
-        href: "security",
-        excerpt: "Learn how your Timescale instance is secured",
-        children: [
-          {
-            title: "About security in Timescale Cloud",
-            href: "overview",
-            excerpt: "Get an overview of Timescale security",
-          },
-          {
-            title: "Client credentials",
-            href: "client-credentials",
-            excerpt: "Client credentials to programmatically access your Timescale account",
-          },
-          {
-            title: "Connect with a stricter SSL mode",
-            href: "strict-ssl",
-            excerpt:
-              "Connect to Timescale with a stricter SSL mode of verify-ca or verify-full",
-          },
-          {
-            title: "Multi-factor Authentication",
-            href: "multi-factor-authentication",
-            excerpt: "Multi-factor authentication for your Timescale account",
-          },
-          {
-            title: "Read only role",
-            href: "read-only-role",
-            excerpt: "Create a read-only role to access your database",
-          },
-          {
-            title: "SAML authentication",
-            href: "saml",
-            excerpt: "SAML / SSO authentication for your Timescale account",
-          },
-        ],
-      },
-      {
-        title: "Control user access to Timescale Cloud projects",
-        href: "user-management",
-        excerpt: "Key concepts for working with pgvector data in PostgreSQL",
       },
       {
         title: "Configuration",
@@ -113,6 +53,33 @@ module.exports = [
             title: "Troubleshooting",
             href: "troubleshooting",
             type: "placeholder",
+          },
+        ],
+      },
+      {
+        title: "Control user access to Timescale Cloud projects",
+        href: "user-management",
+        excerpt: "Key concepts for working with pgvector data in PostgreSQL",
+      },
+      {
+        title: "Ensure data availability and accessibility",
+        href: "data-replication",
+        excerpt: "Key concepts for working with pgvector data in PostgreSQL",
+      },
+      {
+        title: "High availability and read replication",
+        href: "ha-replicas",
+        excerpt: "Timescale high availability and read replication",
+        children: [
+          {
+            title: "Manage high availability",
+            href: "high-availability",
+            excerpt: "Set up HA replicas on Timescale for high availability",
+          },
+          {
+            title: "Manage read replication",
+            href: "read-scaling",
+            excerpt: "Understand how read scaling works in Timescale",
           },
         ],
       },
@@ -276,6 +243,96 @@ module.exports = [
         title: "Monitoring and alerting",
         href: "alerting",
         excerpt: "Configure alerting within Timescale",
+      },
+      {
+        title: "Security",
+        href: "security",
+        excerpt: "Learn how your Timescale instance is secured",
+        children: [
+          {
+            title: "About security in Timescale Cloud",
+            href: "overview",
+            excerpt: "Get an overview of Timescale security",
+          },
+          {
+            title: "Client credentials",
+            href: "client-credentials",
+            excerpt: "Client credentials to programmatically access your Timescale account",
+          },
+          {
+            title: "Connect with a stricter SSL mode",
+            href: "strict-ssl",
+            excerpt:
+              "Connect to Timescale with a stricter SSL mode of verify-ca or verify-full",
+          },
+          {
+            title: "Multi-factor Authentication",
+            href: "multi-factor-authentication",
+            excerpt: "Multi-factor authentication for your Timescale account",
+          },
+          {
+            title: "Read only role",
+            href: "read-only-role",
+            excerpt: "Create a read-only role to access your database",
+          },
+          {
+            title: "SAML authentication",
+            href: "saml",
+            excerpt: "SAML / SSO authentication for your Timescale account",
+          },
+          {
+            title: "VPC Peering and AWS PrivateLink",
+            href: "vpc",
+            excerpt: "Secure your Timescale Service with VPC Peering and AWS PrivateLink",
+          },
+        ],
+      },
+      {
+        title: "User-defined actions",
+        href: "user-defined-actions",
+        children: [
+          {
+            title: "About user-defined actions",
+            href: "about-user-defined-actions",
+            excerpt: "Learn about user-defined actions",
+          },
+          {
+            title: "Alter and delete a user-defined action",
+            href: "alter-and-delete",
+            excerpt: "Edit and delete user-defined actions",
+          },
+          {
+            title: "Create and register a user-defined action",
+            href: "create-and-register",
+            excerpt: "Create a user-defined action",
+          },
+          {
+            title: "Test and debug a user-defined action",
+            href: "test-and-debug",
+            excerpt: "Test and debug user-defined actions",
+          },
+          {
+            title: "Troubleshooting",
+            href: "troubleshooting",
+            type: "placeholder",
+          },
+          {
+            title: "Use an action for generic retention",
+            href: "example-generic-retention",
+            excerpt: "Example user-defined action for a retention policy",
+          },
+          {
+            title: "Use an action for tablespace management",
+            href: "example-tiered-storage",
+            excerpt:
+              "Example user-defined action for automatically moving chunks between tablespaces",
+          },
+          {
+            title: "Use an action for downsampling and compression",
+            href: "example-downsample-and-compress",
+            excerpt: "Example user-defined action for downsample and compress",
+          },
+        ],
       },
     ],
   },

@@ -8,8 +8,15 @@ module.exports = [
     children: [
       {
         title: "pgai API reference",
-        href: "pgai-api",
+        href: "pgai",
         excerpt: "Exhaustive list of the features offered by Timescale products and services",
+        children: [
+          {
+            title: "pgai Vectorizer API reference",
+            href: "vectorizer-api-reference",
+            excerpt: "a vectorizer provides you with a powerful and automated way to generate and manage LLM embeddings for your PostgreSQL data",
+          },
+        ],
       },
       {
         title: "pgvectorscale API reference",

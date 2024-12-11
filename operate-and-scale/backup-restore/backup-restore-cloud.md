@@ -1,47 +1,38 @@
 ---
-title: Backup and restore
+title: Automatic backups
 excerpt: Understand how backups and restores work in Timescale
 products: [cloud]
 keywords: [backups, restore]
 tags: [recovery, failures]
 ---
 
-# Backup and restore
+import NATC from "versionContent/_partials/_self-hosted-not-available.mdx";
+import ABTC from "versionContent/_partials/backup-and-restore/_backup-tsc.mdx";
+import ABMST from "versionContent/_partials/backup-and-restore/_backup-mst.mdx";
 
-Timescale automatically handles backup and restore for all
-services using the `pgBackRest` tool. You don't need to perform
-backups for your Timescale service manually.
+# Automatic backups
 
-Timescale automatically creates one full backup every week, and
-incremental backups every day. Additionally, all WAL ([Write-Ahead Log][wal])
-files are retained back to the oldest full backup. This means that you always
-have a full backup available for the current and previous week, and your service
-can be restored to any point during this time period.
+Ipsum Lorem intro sentence. 
 
-In the event of a storage failure, a service automatically restores from backup
-to the point of failure. In the event of a user error where a point-in-time
-recovery needs to be done, you can create a PITR fork by following the
-instructions [here][pitr].
+<Tabs label="Platform dependent implementations">
 
-This diagram describes how a restore from backup occurs after a storage failure:
+<Tab title="Timescale Cloud">
 
-<Highlight type="note">
+<ABTC />
 
-Compute failures do not require a full restore from backup. For more
-information, see the
-[rapid recovery section][rapid-recovery].
+</Tab>
 
-</Highlight>
+<Tab title="MST">
 
-<img class="main-content__illustration"
-width={1375} height={944}
-src="https://www.timescale.com/blog/content/images/2022/08/backups-3.png"
-alt="Diagram showing recovery from backup. First, the latest full
-backup is restored. Then, the incremental backup is restored.
-Finally, WAL is replayed to cover any remaining gap."/>
+<ABMST />
 
-[wal]: https://www.postgresql.org/docs/current/wal-intro.html
-[support]: https://www.timescale.com/contact/
-[pitr]: /use-timescale/:currentVersion:/backup-restore/point-in-time-recovery/
-[rapid-recovery]: /use-timescale/:currentVersion:/ha-replicas/#rapid-recovery
+</Tab>
+
+<Tab title="Self-hosted">
+
+<NATC />
+
+</Tab>
+
+</Tabs>
 
